@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "785183110673",
+    "project_id": "blueberry-b4fff",
+    "storage_bucket": "blueberry-b4fff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:785183110673:android:ff756e435e44f9d465e3b0",
+        "android_client_info": {
+          "package_name": "com.example.blueberry_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLdB4y8fL5arelPp3eaUaXE4B6eqYxRVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
