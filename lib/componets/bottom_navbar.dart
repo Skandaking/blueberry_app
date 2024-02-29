@@ -1,3 +1,7 @@
+import 'package:blueberry_app/pages/books_page.dart';
+import 'package:blueberry_app/pages/home_page.dart';
+import 'package:blueberry_app/pages/profile_page.dart';
+import 'package:blueberry_app/pages/trips_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -13,7 +17,7 @@ class _NavbarBottomState extends State<NavbarBottom> {
 
   final List<Widget> _pages = [
     HomePage(),
-    BooksPage(),
+    BookingPage(),
     TripsPage(),
     ProfilePage(),
   ];
@@ -69,34 +73,5 @@ class _NavbarBottomState extends State<NavbarBottom> {
     setState(() {
       _selectedIndex = index;
     });
-  }
-}
-
-// Define your pages (replace these with your actual page widgets)
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Home Page'));
-  }
-}
-
-class BooksPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Books Page'));
-  }
-}
-
-class TripsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Trips Page'));
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Profile Page'));
   }
 }

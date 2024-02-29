@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key});
 
-  final user = FirebaseAuth.instance.currentUser!;
+  //final user = FirebaseAuth.instance.currentUser!;
 
   // sign user out
   void signUserOut() {
@@ -14,6 +14,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         actions: [
           IconButton(
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Center(
           child: Text(
-        " Logged in " + user.email!,
+        " Homepage ",
         style: TextStyle(fontSize: 20),
       )),
     );
