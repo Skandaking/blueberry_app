@@ -1,3 +1,5 @@
+import 'dart:js_util';
+
 import 'package:flutter/material.dart';
 
 class SideNavbar extends StatelessWidget {
@@ -66,6 +68,11 @@ class SideNavbar extends StatelessWidget {
         ListTile(
           leading: Icon(Icons.more_horiz),
           title: Text('About Us'),
+          onTap: () => {},
+        ),
+        ListTile(
+          leading: Icon(Icons.settings),
+          title: Text('Settings'),
           onTap: () => {},
         ),
         ListTile(
