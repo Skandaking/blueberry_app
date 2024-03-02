@@ -1,3 +1,4 @@
+import 'package:blueberry_app/componets/side_navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -14,13 +15,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideNavbar(),
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
+        title: Center(child: Text('Home')),
         actions: [
-          IconButton(
-            onPressed: signUserOut,
-            icon: Icon(Icons.logout),
-          )
+          IconButton(icon: Icon(Icons.notifications), onPressed: () {}),
         ],
       ),
       body: Center(
