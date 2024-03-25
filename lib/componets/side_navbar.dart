@@ -1,9 +1,13 @@
-import 'dart:js_util';
-
+import 'package:blueberry_app/Extras/faq.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SideNavbar extends StatelessWidget {
   const SideNavbar({super.key});
+
+  void signUserOut() {
+    FirebaseAuth.instance.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,8 @@ class SideNavbar extends StatelessWidget {
           decoration: BoxDecoration(
               color: Color.fromARGB(255, 237, 83, 36),
               image: DecorationImage(
-                  image: AssetImage('lib/images/bg1.jpg'), fit: BoxFit.cover)),
+                image: AssetImage('lib/images/bg1.jpg'),
+              )),
         ),
         ListTile(
           leading: Icon(Icons.flight_takeoff),
@@ -38,7 +43,12 @@ class SideNavbar extends StatelessWidget {
         ListTile(
           leading: Icon(Icons.question_mark_rounded),
           title: Text('FAQ'),
-          onTap: () => {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FAQPage()),
+            );
+          },
         ),
         ListTile(
           leading: Icon(Icons.feedback_outlined),
@@ -70,6 +80,7 @@ class SideNavbar extends StatelessWidget {
           title: Text('About Us'),
           onTap: () => {},
         ),
+        Divider(),
         ListTile(
           leading: Icon(Icons.settings),
           title: Text('Settings'),
@@ -78,8 +89,37 @@ class SideNavbar extends StatelessWidget {
         ListTile(
           leading: Icon(Icons.logout_rounded),
           title: Text('Logout'),
-          onTap: () => {},
-        ),
+          onTap: () {
+            // Show a confirmation dialog
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Logout'),
+                  content: Text('Are you sure you want to logout?'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () {
+                        // Dismiss the dialog and cancel the logout
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // Dismiss the dialog and proceed with the logout
+                        Navigator.of(context).pop();
+
+                        signUserOut();
+                      },
+                      child: Text('Logout'),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        )
       ],
     ));
   }

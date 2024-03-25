@@ -37,7 +37,7 @@ class _NavbarBottomState extends State<NavbarBottom> {
           ),
           GButton(
             icon: Icons.flight,
-            text: 'Books',
+            text: 'Book',
             onPressed: () {
               _onNavItemTapped(1);
             },

@@ -23,11 +23,6 @@ class HomePage extends StatelessWidget {
           IconButton(icon: Icon(Icons.notifications), onPressed: () {}),
         ],
       ),
-      body: Center(
-          child: Text(
-        " Homepage ",
-        style: TextStyle(fontSize: 20),
-      )),
     );
   }
 }

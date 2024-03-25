@@ -1,7 +1,9 @@
 import 'package:blueberry_app/Methods/google_auth.dart';
+import 'package:blueberry_app/componets/bottom_navbar.dart';
 import 'package:blueberry_app/componets/my_button.dart';
 import 'package:blueberry_app/componets/my_textfield.dart';
 import 'package:blueberry_app/componets/square_tile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -39,16 +41,30 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       //check if password match
       if (passwordController.text == confirmPasswordController.text) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
         );
+
+//after creating user, create new document in cloud firestore called Users
+        FirebaseFirestore.instance
+            .collection('Users')
+            .doc(userCredential.user!.email)
+            .set({
+          'Firstname': '',
+          'Lastname': '',
+          'Date of Birth': DateTime.now().toString(),
+          'Gender': "Not Specified",
+          'Country Code': '',
+          'Phone Number': ''
+        });
 
         // Navigate to the home page after successful sign-up
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePage(),
+            builder: (context) => NavbarBottom(),
           ),
         );
       } else {
@@ -120,7 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 //username textfield
                 MyTextFilled(
                   controller: emailController,
-                  hinttext: 'Username',
+                  hinttext: 'Email',
                   obsecureText: false,
                 ),
 
