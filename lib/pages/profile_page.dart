@@ -1,7 +1,12 @@
+import 'dart:ffi';
+import 'dart:typed_data';
+
+import 'package:blueberry_app/Methods/image_get.dart';
 import 'package:blueberry_app/componets/text_box.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -21,6 +26,16 @@ class _ProfilePageState extends State<ProfilePage> {
   DateTime? selectedDate;
   String? selectedGender;
   String? selectedCountryCode;
+
+  //select image
+  Uint8List? _image;
+
+  void selectImage() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = img;
+    });
+  }
 
 //edit field
   Future<void> editField(String field) async {
@@ -153,12 +168,38 @@ class _ProfilePageState extends State<ProfilePage> {
 
               return ListView(children: [
                 const SizedBox(height: 25),
+
                 //profile picture
-                Icon(
-                  Icons.person,
-                  size: 100,
+                Center(
+                  child: Stack(
+                    children: [
+                      _image != null
+                          ? CircleAvatar(
+                              radius: 64,
+                              backgroundImage: MemoryImage(_image!),
+                            )
+                          : const CircleAvatar(
+                              radius: 65,
+                              backgroundImage: NetworkImage(
+                                  'https://th.bing.com/th/id/OIP.TpqSE-tsrMBbQurUw2Su-AHaHk?w=159&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'),
+                            ),
+                      Positioned(
+                        child: IconButton(
+                          onPressed: selectImage,
+                          icon: const Icon(
+                            Icons.add_a_photo,
+                            color: Colors.black,
+                          ),
+                        ),
+                        bottom: -10,
+                        left: 80,
+                      )
+                    ],
+                  ),
                 ),
+
                 const SizedBox(height: 10),
+
                 //email
                 Text(
                   currentUser.email!,
