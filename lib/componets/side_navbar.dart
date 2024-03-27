@@ -1,4 +1,5 @@
 import 'package:blueberry_app/Extras/about.dart';
+import 'package:blueberry_app/Extras/contact.dart';
 import 'package:blueberry_app/Extras/faq.dart';
 import 'package:blueberry_app/Extras/review.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -114,10 +115,17 @@ class SideNavbar extends StatelessWidget {
           title: Text('COVID-19 Updates'),
           onTap: () => {},
         ),
+
+        //conatct form
         ListTile(
           leading: Icon(Icons.contact_phone),
           title: Text('Contact Us'),
-          onTap: () => {},
+          onTap: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ContactUsPage()),
+            )
+          },
         ),
         ListTile(
           leading: Icon(Icons.more_horiz),

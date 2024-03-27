@@ -28,6 +28,11 @@
 	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
+	<key>LSApplicationQueriesSchemes</key>
+   <array>
+     <string>sms</string>
+    <string>tel</string>
+   </array>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:785183110673:ios:85a1dc5ffe54dec665e3b0</string>
 </dict>
