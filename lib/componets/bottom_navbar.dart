@@ -1,4 +1,4 @@
-import 'package:blueberry_app/pages/books_page.dart';
+import 'package:blueberry_app/pages/booking_page.dart';
 import 'package:blueberry_app/pages/home_page.dart';
 import 'package:blueberry_app/pages/profile_page.dart';
 import 'package:blueberry_app/pages/trips_page.dart';
