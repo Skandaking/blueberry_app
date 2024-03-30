@@ -1,3 +1,4 @@
+import 'package:blueberry_app/componets/flight_view.dart';
 import 'package:blueberry_app/componets/side_navbar.dart';
 import 'package:blueberry_app/componets/ticket_view.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,10 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(icon: Icon(Icons.notifications), onPressed: () {}),
           ],
-          bottom: const TabBar(
+          bottom: TabBar(
+            indicatorColor: Theme.of(context)
+                .primaryColor, // Color of the selected tab indicator
+            labelColor: Theme.of(context).primaryColor,
             tabs: [
               Tab(
                 child: Row(
@@ -141,14 +145,14 @@ class _HomePageState extends State<HomePage> {
                                 'View All',
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: Colors.blue,
+                                  color: Color.fromARGB(255, 237, 83, 36),
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          height: 150,
+                          height: 160,
                           child: CarouselSlider.builder(
                             itemCount: upcomingFlights.length,
                             itemBuilder: (context, index, realIndex) {
@@ -164,6 +168,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
+                        FlightView(),
                       ],
                     ),
                   ),

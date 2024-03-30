@@ -20,6 +20,9 @@ class TripsPage extends StatelessWidget {
         body: Column(
           children: [
             TabBar(
+              indicatorColor: Theme.of(context)
+                  .primaryColor, // Color of the selected tab indicator
+              labelColor: Theme.of(context).primaryColor,
               // Moving TabBar outside app bar
               tabs: [
                 Tab(text: 'Past'), // Tab for One way
