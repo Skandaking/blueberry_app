@@ -41,10 +41,12 @@ dependencies:
   google_sign_in: ^6.2.1
   intl: ^0.19.0
   cloud_firestore: ^4.15.8
-  google_fonts: ^6.2.1
+  google_fonts: ^4.0.4
   image_picker: ^1.0.7
   url_launcher: ^6.2.5
   carousel_slider: ^4.2.1
+  algoliasearch: ^1.6.1
+  algolia: ^1.1.2
 
 dev_dependencies:
   flutter_test:

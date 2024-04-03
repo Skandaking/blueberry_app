@@ -1,8 +1,7 @@
+import 'package:blueberry_app/Methods/search_flight.dart';
 import 'package:blueberry_app/componets/my_button.dart';
-import 'package:blueberry_app/componets/side_navbar.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:blueberry_app/pages/search_flight_results.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class BookingPage extends StatefulWidget {
   const BookingPage({Key? key}) : super(key: key);
@@ -14,22 +13,28 @@ class BookingPage extends StatefulWidget {
 class _BookingPageState extends State<BookingPage> {
   DateTime? departureDate;
   DateTime? returnDate;
+  String? fromCity;
+  String? toCity;
+  int? passengers;
+  String? travelClass;
+  double? totalPrice;
+
+  final TextEditingController _fromCityController = TextEditingController();
+  final TextEditingController _toCityController = TextEditingController();
+  //final TextEditingController _passengersController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        drawer: SideNavbar(),
-        backgroundColor: Colors.grey[300],
         appBar: AppBar(
           title: Center(child: Text('Flight Booking')),
           actions: [
             IconButton(icon: Icon(Icons.history), onPressed: () {}),
           ],
           bottom: TabBar(
-            indicatorColor: Theme.of(context)
-                .primaryColor, // Color of the selected tab indicator
+            indicatorColor: Theme.of(context).primaryColor,
             labelColor: Theme.of(context).primaryColor,
             tabs: [
               Tab(text: 'One way'),
@@ -48,14 +53,14 @@ class _BookingPageState extends State<BookingPage> {
                   children: [
                     // Search row for from and to
                     Container(
-                      height: 115.0, // Increased height for the row
+                      height: 115.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.grey[100],
+                        color: Colors.grey[200],
                       ),
                       child: Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -67,10 +72,19 @@ class _BookingPageState extends State<BookingPage> {
                                   ),
                                 ),
                                 SizedBox(height: 5.0),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    hintText: 'Enter origin',
-                                    border: InputBorder.none,
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: TextField(
+                                    controller: _fromCityController,
+                                    decoration: InputDecoration(
+                                      hintText: 'Departure',
+                                      border: InputBorder.none,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        fromCity = value;
+                                      });
+                                    },
                                   ),
                                 ),
                               ],
@@ -79,8 +93,9 @@ class _BookingPageState extends State<BookingPage> {
                           IconButton(
                             icon: Icon(Icons.swap_horiz),
                             color: Color.fromARGB(255, 237, 83, 36),
-                            onPressed:
-                                () {}, // Implement functionality to swap from and to
+                            onPressed: () {
+                              // Implement functionality to swap from and to
+                            },
                           ),
                           Expanded(
                             child: Column(
@@ -95,10 +110,16 @@ class _BookingPageState extends State<BookingPage> {
                                 ),
                                 SizedBox(height: 5.0),
                                 TextField(
+                                  controller: _toCityController,
                                   decoration: InputDecoration(
-                                    hintText: 'Enter destination',
+                                    hintText: 'Arrival',
                                     border: InputBorder.none,
                                   ),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      toCity = value;
+                                    });
+                                  },
                                 ),
                               ],
                             ),
@@ -113,16 +134,19 @@ class _BookingPageState extends State<BookingPage> {
                         Text(
                           'Departure Date:',
                           style: TextStyle(
-                              fontSize: 18.0, color: Colors.grey[600]),
+                            fontSize: 18.0,
+                            color: Colors.grey[600],
+                          ),
                         ),
                         Spacer(),
                         TextButton(
                           onPressed: () {
-                            _selectDate(
-                                context, true); // Call function to pick a date
+                            _selectDate(context, true);
                           },
                           child: Text(
-                            'Select Date',
+                            departureDate == null
+                                ? 'Select Date'
+                                : '${departureDate!.day}/${departureDate!.month}/${departureDate!.year}',
                             style: TextStyle(
                               color: Color.fromARGB(255, 237, 83, 36),
                             ),
@@ -134,63 +158,77 @@ class _BookingPageState extends State<BookingPage> {
                     // Passengers and class selection
                     Row(
                       children: [
-                        Text(
-                          'Passengers:',
-                          style: TextStyle(
-                              fontSize: 17.0, color: Colors.grey[600]),
-                        ),
-                        SizedBox(width: 10.0),
-                        DropdownButton<int>(
-                          value: 1, // Initial value (1 passenger)
-                          items: [
-                            DropdownMenuItem(
-                              value: 1,
-                              child: Text('1'),
+                        Expanded(
+                          child: Center(
+                            child: DropdownButton<String>(
+                              value: travelClass, // Update the value property
+                              items: const [
+                                DropdownMenuItem(
+                                  value: 'Economy',
+                                  child: Text('Economy'),
+                                ),
+                                DropdownMenuItem(
+                                  value: 'Business',
+                                  child: Text('Business'),
+                                ),
+                                DropdownMenuItem(
+                                  value: 'First Class',
+                                  child: Text('First Class'),
+                                ),
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  travelClass =
+                                      value; // Update the travelClass variable
+                                });
+                              },
                             ),
-                            DropdownMenuItem(
-                              value: 2,
-                              child: Text('2'),
-                            ),
-                            DropdownMenuItem(
-                              value: 3,
-                              child: Text('3'),
-                            ),
-                            // Add more options as needed
-                          ],
-                          onChanged:
-                              (value) {}, // Implement functionality to handle passenger selection
-                        ),
-                        Spacer(),
-                        DropdownButton<String>(
-                          value: 'Economy', // Initial value
-                          items: const [
-                            DropdownMenuItem(
-                              value: 'Economy',
-                              child: Text('Economy'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'Business',
-                              child: Text('Business'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'First Class',
-                              child: Text('First Class'),
-                            ),
-                          ],
-                          onChanged:
-                              (value) {}, // Implement functionality to handle class selection
+                          ),
                         ),
                       ],
                     ),
+
                     SizedBox(height: 70.0),
+
                     // Search flights button
                     SizedBox(
-                        width: double.infinity,
-                        height: 70.0,
-                        child: MyButton(
-                          text: 'Search Flights',
-                          onTap: () {},
-                        ))
+                      width: double.infinity,
+                      height: 70.0,
+                      child: MyButton(
+                        text: 'Search Flights',
+                        onTap: () {
+                          if (fromCity == null ||
+                              toCity == null ||
+                              departureDate == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Please fill in all the fields'),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                          } else {
+                            final searchResults =
+                                searchFlightsByArrival(toCity!, travelClass!);
+                            if (searchResults.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('No search results found'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      SearchResultsPage(results: searchResults),
+                                ),
+                              );
+                            }
+                          }
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -204,7 +242,7 @@ class _BookingPageState extends State<BookingPage> {
                   children: [
                     // Search row for from and to
                     Container(
-                      height: 115.0, // Increased height for the row
+                      height: 115.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         color: Colors.grey[100],
@@ -223,10 +261,19 @@ class _BookingPageState extends State<BookingPage> {
                                   ),
                                 ),
                                 SizedBox(height: 5.0),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    hintText: 'Enter origin',
-                                    border: InputBorder.none,
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: TextField(
+                                    controller: _fromCityController,
+                                    decoration: InputDecoration(
+                                      hintText: 'Departure',
+                                      border: InputBorder.none,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        fromCity = value;
+                                      });
+                                    },
                                   ),
                                 ),
                               ],
@@ -235,10 +282,11 @@ class _BookingPageState extends State<BookingPage> {
                           IconButton(
                             icon: Icon(Icons.swap_horiz_rounded),
                             color: Color.fromARGB(255, 237, 83, 36),
-                            onPressed:
-                                () {}, // Implement functionality to swap from and to
+                            onPressed: () {
+                              // Implement functionality to swap from and to
+                            },
                           ),
-                          const Expanded(
+                          Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -250,10 +298,19 @@ class _BookingPageState extends State<BookingPage> {
                                   ),
                                 ),
                                 SizedBox(height: 5.0),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    hintText: 'Enter destination',
-                                    border: InputBorder.none,
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: TextField(
+                                    controller: _toCityController,
+                                    decoration: InputDecoration(
+                                      hintText: 'Arrival',
+                                      border: InputBorder.none,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        toCity = value;
+                                      });
+                                    },
                                   ),
                                 ),
                               ],
@@ -281,8 +338,7 @@ class _BookingPageState extends State<BookingPage> {
                             SizedBox(height: 5.0),
                             TextButton(
                               onPressed: () {
-                                _selectDate(
-                                    context, true); // Select departure date
+                                _selectDate(context, true);
                               },
                               child: Text(
                                 departureDate == null
@@ -309,8 +365,7 @@ class _BookingPageState extends State<BookingPage> {
                             SizedBox(height: 5.0),
                             TextButton(
                               onPressed: () {
-                                _selectDate(
-                                    context, false); // Select return date
+                                _selectDate(context, false);
                               },
                               child: Text(
                                 returnDate == null
@@ -329,64 +384,75 @@ class _BookingPageState extends State<BookingPage> {
                     // Passengers and class selection
                     Row(
                       children: [
-                        Text(
-                          'Passengers:',
-                          style: TextStyle(
-                            fontSize: 17.0,
-                            color: Colors.grey[600],
+                        Expanded(
+                          child: Center(
+                            child: DropdownButton<String>(
+                              value: travelClass, // Update the value property
+                              items: const [
+                                DropdownMenuItem(
+                                  value: 'Economy',
+                                  child: Text('Economy'),
+                                ),
+                                DropdownMenuItem(
+                                  value: 'Business',
+                                  child: Text('Business'),
+                                ),
+                                DropdownMenuItem(
+                                  value: 'First Class',
+                                  child: Text('First Class'),
+                                ),
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  travelClass =
+                                      value; // Update the travelClass variable
+                                });
+                              },
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 10.0),
-                        DropdownButton<int>(
-                          value: 1, // Initial value (1 passenger)
-                          items: [
-                            DropdownMenuItem(
-                              value: 1,
-                              child: Text('1'),
-                            ),
-                            DropdownMenuItem(
-                              value: 2,
-                              child: Text('2'),
-                            ),
-                            DropdownMenuItem(
-                              value: 3,
-                              child: Text('3'),
-                            ),
-                            // Add more options as needed
-                          ],
-                          onChanged:
-                              (value) {}, // Implement functionality to handle passenger selection
-                        ),
-                        Spacer(),
-                        DropdownButton<String>(
-                          value: 'Economy', // Initial value
-                          items: [
-                            DropdownMenuItem(
-                              value: 'Economy',
-                              child: Text('Economy'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'Business',
-                              child: Text('Business'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'First Class',
-                              child: Text('First Class'),
-                            ),
-                          ],
-                          onChanged:
-                              (value) {}, // Implement functionality to handle class selection
                         ),
                       ],
                     ),
+
                     SizedBox(height: 70.0),
                     // Search flights button
                     SizedBox(
                       width: double.infinity,
                       height: 70.0,
                       child: MyButton(
+                        onTap: () {
+                          if (fromCity == null ||
+                              toCity == null ||
+                              departureDate == null ||
+                              returnDate == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Please fill in all the fields'),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                          } else {
+                            final searchResults =
+                                searchFlightsByArrival(toCity!, travelClass!);
+                            if (searchResults.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('No search results found'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      SearchResultsPage(results: searchResults),
+                                ),
+                              );
+                            }
+                          }
+                        },
                         text: 'Search Flights',
-                        onTap: () {},
                       ),
                     ),
                   ],
