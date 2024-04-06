@@ -45,8 +45,7 @@ dependencies:
   image_picker: ^1.0.7
   url_launcher: ^6.2.5
   carousel_slider: ^4.2.1
-  algoliasearch: ^1.6.1
-  algolia: ^1.1.2
+  stripe_payment: ^1.0.7
 
 dev_dependencies:
   flutter_test:

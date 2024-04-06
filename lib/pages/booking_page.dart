@@ -1,6 +1,10 @@
 import 'package:blueberry_app/Methods/search_flight.dart';
 import 'package:blueberry_app/componets/my_button.dart';
+import 'package:blueberry_app/componets/side_navbar.dart';
 import 'package:blueberry_app/pages/search_flight_results.dart';
+import 'package:blueberry_app/pages/search_history.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class BookingPage extends StatefulWidget {
@@ -21,17 +25,26 @@ class _BookingPageState extends State<BookingPage> {
 
   final TextEditingController _fromCityController = TextEditingController();
   final TextEditingController _toCityController = TextEditingController();
-  //final TextEditingController _passengersController = TextEditingController();
+  final TextEditingController _passengersController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        drawer: SideNavbar(),
         appBar: AppBar(
           title: Center(child: Text('Flight Booking')),
           actions: [
-            IconButton(icon: Icon(Icons.history), onPressed: () {}),
+            IconButton(
+                icon: Icon(Icons.history),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SearchHistoryPage()),
+                  );
+                }),
           ],
           bottom: TabBar(
             indicatorColor: Theme.of(context).primaryColor,
@@ -195,11 +208,12 @@ class _BookingPageState extends State<BookingPage> {
                       width: double.infinity,
                       height: 70.0,
                       child: MyButton(
-                        text: 'Search Flights',
                         onTap: () {
                           if (fromCity == null ||
                               toCity == null ||
-                              departureDate == null) {
+                              departureDate == null ||
+                              returnDate == null ||
+                              travelClass == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('Please fill in all the fields'),
@@ -207,6 +221,11 @@ class _BookingPageState extends State<BookingPage> {
                               ),
                             );
                           } else {
+                            // Save search history before searching for flights
+                            saveSearchHistory(fromCity!, toCity!, travelClass!,
+                                FirebaseAuth.instance.currentUser!.email!);
+
+                            // Proceed with searching for flights
                             final searchResults =
                                 searchFlightsByArrival(toCity!, travelClass!);
                             if (searchResults.isEmpty) {
@@ -227,6 +246,7 @@ class _BookingPageState extends State<BookingPage> {
                             }
                           }
                         },
+                        text: 'Search Flights',
                       ),
                     ),
                   ],
@@ -424,7 +444,7 @@ class _BookingPageState extends State<BookingPage> {
                           if (fromCity == null ||
                               toCity == null ||
                               departureDate == null ||
-                              returnDate == null) {
+                              travelClass == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('Please fill in all the fields'),
@@ -432,6 +452,11 @@ class _BookingPageState extends State<BookingPage> {
                               ),
                             );
                           } else {
+                            // Save search history before searching for flights
+                            saveSearchHistory(fromCity!, toCity!, travelClass!,
+                                FirebaseAuth.instance.currentUser!.email!);
+
+                            // Proceed with searching for flights
                             final searchResults =
                                 searchFlightsByArrival(toCity!, travelClass!);
                             if (searchResults.isEmpty) {
@@ -482,4 +507,15 @@ class _BookingPageState extends State<BookingPage> {
       });
     }
   }
+}
+
+Future<void> saveSearchHistory(String fromCity, String toCity,
+    String travelClass, String userEmail) async {
+  FirebaseFirestore.instance.collection('searchHistory').add({
+    'fromCity': fromCity,
+    'toCity': toCity,
+    'travelClass': travelClass,
+    'userEmail': userEmail,
+    'searchDate': FieldValue.serverTimestamp(),
+  });
 }

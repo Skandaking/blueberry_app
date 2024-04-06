@@ -150,10 +150,11 @@ class _ProfilePageState extends State<ProfilePage> {
           title: Center(
             child: Text(
               "Profile page",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
           ),
-          backgroundColor: Colors.grey[900],
+
+          //  backgroundColor: Colors.grey[900],
         ),
         body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
