@@ -135,6 +135,7 @@ class SearchResultsPage extends StatelessWidget {
                                   builder: (context) =>
                                       PassengerInformationPage(
                                     bookingReference: bookingReference,
+                                    price: flight.price,
                                   ),
                                 ),
                               );

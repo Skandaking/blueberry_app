@@ -16,6 +16,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  void signUserOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
   //user
   final currentUser = FirebaseAuth.instance.currentUser!;
   // all users
@@ -153,9 +157,44 @@ class _ProfilePageState extends State<ProfilePage> {
               style: TextStyle(color: Colors.black),
             ),
           ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Logout'),
+                      content: Text('Are you sure you want to logout?'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            // Dismiss the dialog and cancel the logout
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            // Dismiss the dialog and proceed with the logout
+                            Navigator.of(context).pop();
 
-          //  backgroundColor: Colors.grey[900],
+                            signUserOut();
+                          },
+                          child: Text('Logout'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+          ],
         ),
+
+        //  backgroundColor: Colors.grey[900],
+
         body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
               .collection("Users")

@@ -53,7 +53,7 @@ List<Flight> flights = [
     "DepartureDate": "2024-04-11",
     "DepartureTime": "08:30",
     "AvailableSeats": 50,
-    "Price": "120",
+    "Price": "120000",
     "Status": "Active"
   },
   {
@@ -63,7 +63,7 @@ List<Flight> flights = [
     "DepartureDate": "2024-04-15",
     "DepartureTime": "13:30",
     "AvailableSeats": 50,
-    "Price": "120",
+    "Price": "120000",
     "Status": "Active"
   },
   {
@@ -73,7 +73,7 @@ List<Flight> flights = [
     "DepartureDate": "2024-04-12",
     "DepartureTime": "10:00",
     "AvailableSeats": 60,
-    "Price": "200",
+    "Price": "200000",
     "Status": "Active"
   },
   {
@@ -83,7 +83,7 @@ List<Flight> flights = [
     "DepartureDate": "2024-04-13",
     "DepartureTime": "09:45",
     "AvailableSeats": 45,
-    "Price": "210",
+    "Price": "150000",
     "Status": "Active"
   },
   {
@@ -93,7 +93,7 @@ List<Flight> flights = [
     "DepartureDate": "2024-04-14",
     "DepartureTime": "11:20",
     "AvailableSeats": 55,
-    "Price": "140",
+    "Price": "140000",
     "Status": "Active"
   },
   {
@@ -103,7 +103,7 @@ List<Flight> flights = [
     "DepartureDate": "2024-04-15",
     "DepartureTime": "08:00",
     "AvailableSeats": 40,
-    "Price": "125",
+    "Price": "125000",
     "Status": "Active"
   },
   {
@@ -113,7 +113,7 @@ List<Flight> flights = [
     "DepartureDate": "2024-04-16",
     "DepartureTime": "10:30",
     "AvailableSeats": 65,
-    "Price": "155",
+    "Price": "155000",
     "Status": "Active"
   },
   {
@@ -123,7 +123,7 @@ List<Flight> flights = [
     "DepartureDate": "2024-04-17",
     "DepartureTime": "09:15",
     "AvailableSeats": 70,
-    "Price": "160",
+    "Price": "160000",
     "Status": "Active"
   },
   {
@@ -133,7 +133,7 @@ List<Flight> flights = [
     "DepartureDate": "2024-04-18",
     "DepartureTime": "11:45",
     "AvailableSeats": 48,
-    "Price": "220",
+    "Price": "220000",
     "Status": "Active"
   },
   {
@@ -143,7 +143,7 @@ List<Flight> flights = [
     "DepartureDate": "2024-04-19",
     "DepartureTime": "08:45",
     "AvailableSeats": 53,
-    "Price": "145",
+    "Price": "145000",
     "Status": "Active"
   }
   // Add more flight data here...

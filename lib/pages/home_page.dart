@@ -1,6 +1,7 @@
 import 'package:blueberry_app/componets/flight_view.dart';
 import 'package:blueberry_app/componets/side_navbar.dart';
 import 'package:blueberry_app/componets/ticket_view.dart';
+import 'package:blueberry_app/pages/notification_page.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController searchController = TextEditingController();
+  final navigatorKey = GlobalKey<NavigatorState>();
 
   List<Map<String, dynamic>> upcomingFlights = [
     {
@@ -61,7 +63,14 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Center(child: Text('Home')),
           actions: [
-            IconButton(icon: Icon(Icons.notifications), onPressed: () {}),
+            IconButton(
+                icon: Icon(Icons.notifications),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NotificationPage()),
+                  );
+                }),
           ],
           bottom: TabBar(
             indicatorColor: Theme.of(context)

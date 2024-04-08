@@ -29,7 +29,7 @@ class BookingManager {
         'bookingDatetime': DateTime.now(),
         'bookingReference': bookingReference,
         'userEmail': currentUser.email!,
-        'bookingStatus': 'pending', // Initial booking status
+        'bookingStatus': 'complted', // Initial booking status
       });
 
       // Return the generated booking reference

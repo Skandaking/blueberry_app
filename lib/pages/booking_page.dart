@@ -212,7 +212,6 @@ class _BookingPageState extends State<BookingPage> {
                           if (fromCity == null ||
                               toCity == null ||
                               departureDate == null ||
-                              returnDate == null ||
                               travelClass == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -444,6 +443,7 @@ class _BookingPageState extends State<BookingPage> {
                           if (fromCity == null ||
                               toCity == null ||
                               departureDate == null ||
+                              returnDate == null ||
                               travelClass == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(

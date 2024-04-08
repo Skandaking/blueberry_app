@@ -6,8 +6,10 @@ import 'package:blueberry_app/componets/my_button.dart';
 
 class PassengerInformationPage extends StatefulWidget {
   final String bookingReference;
+  final String price;
 
-  PassengerInformationPage({required this.bookingReference});
+  PassengerInformationPage(
+      {required this.bookingReference, required this.price});
 
   @override
   _PassengerInformationPageState createState() =>
@@ -45,6 +47,17 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
   }
 
   Future<void> _savePassenger(BuildContext context) async {
+    // Check if passenger details are already confirmed
+    if (_confirmed) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Passenger details already confirmed'),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
     try {
       await FirestoreService.savePassenger(
         bookingReference: widget.bookingReference,
@@ -263,8 +276,10 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        PaymentPage(bookingReference: widget.bookingReference),
+                    builder: (context) => PaymentPage(
+                      bookingReference: widget.bookingReference,
+                      price: widget.price,
+                    ),
                   ),
                 );
               },

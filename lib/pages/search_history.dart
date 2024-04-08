@@ -8,7 +8,7 @@ class SearchHistoryPage extends StatefulWidget {
 }
 
 class _SearchHistoryPageState extends State<SearchHistoryPage> {
-  late User? currentUser; // Initialize as nullable
+  User? currentUser; // Declare currentUser as nullable
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _SearchHistoryPageState extends State<SearchHistoryPage> {
       appBar: AppBar(
         title: Text('Search History'),
       ),
-      body: currentUser != null
+      body: currentUser != null // Check if currentUser is not null
           ? StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection('searchHistory')

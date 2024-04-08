@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:stripe_payment/stripe_payment.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:stripe_payment/stripe_payment.dart';
+import 'package:blueberry_app/componets/bottom_navbar.dart';
 
 class PaymentPage extends StatefulWidget {
   final String bookingReference;
+  final String price;
 
-  PaymentPage({required this.bookingReference});
+  PaymentPage({required this.bookingReference, required this.price});
 
   @override
   _PaymentPageState createState() => _PaymentPageState();
@@ -15,75 +17,30 @@ class PaymentPage extends StatefulWidget {
 class _PaymentPageState extends State<PaymentPage> {
   Token? _paymentToken;
   PaymentMethod? _paymentMethod;
-  TextEditingController _amountController = TextEditingController();
   bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    // Fetch the price from Firestore based on the booking reference
-    fetchPriceFromFirestore();
     StripePayment.setOptions(
       StripeOptions(
         publishableKey:
-            "pk_test_51P2JHGRrldZeIbJC83F3Rs5vxU1IrznOIf1dqdJxbMNCFWW5GJ4QrtpZ6eXsqmCBbLwOw0ByFQwMWOeYtKpdn8AK004rqFawWL",
+            'pk_test_51P2JHGRrldZeIbJC83F3Rs5vxU1IrznOIf1dqdJxbMNCFWW5GJ4QrtpZ6eXsqmCBbLwOw0ByFQwMWOeYtKpdn8AK004rqFawWL',
+        merchantId: 'your_merchant_id', // Optional
+        androidPayMode: 'test', // Android only: 'test' or 'production'
       ),
     );
   }
 
-  Future<void> fetchPriceFromFirestore() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-          .collection('bookings')
-          .doc(widget.bookingReference)
-          .get();
-
-      if (documentSnapshot.exists) {
-        var price = documentSnapshot['price'];
-        if (price is String) {
-          _amountController.text =
-              price; // Set the text directly if it's a string
-        } else if (price is int) {
-          _amountController.text =
-              price.toString(); // Convert integer to string
-        }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-                'Document does not exist. Please check the booking reference.'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content:
-              Text('Error fetching price from Firestore. Please try again.'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
-
   Future<void> _payWithCard() async {
-    int amount = int.tryParse(_amountController.text) ?? 0;
+    int amount = int.tryParse(widget.price) ?? 0;
 
     try {
       final paymentMethod = await StripePayment.paymentRequestWithCardForm(
         CardFormPaymentRequest(),
       );
 
-      print('Payment amount: \$${amount / 100}');
+      print('Payment amount: MK ${widget.price}');
 
       // Save payment details to Firestore
       await FirebaseFirestore.instance.collection('payments').add({
@@ -93,16 +50,26 @@ class _PaymentPageState extends State<PaymentPage> {
         'userEmail': FirebaseAuth.instance.currentUser!.email,
       });
 
+      // Save notification details to Firestore
+      await FirebaseFirestore.instance.collection('notifications').add({
+        'title': 'Booking Confirmation',
+        'message':
+            'You have successfully booked a flight: ${widget.bookingReference}',
+        'userEmail': FirebaseAuth.instance.currentUser!.email,
+        'timestamp': DateTime.now(),
+      });
+
+      // Show payment successful dialog
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Payment Successful'),
-            content: Text('Payment completed for amount: \$${amount / 100}'),
+            content: Text('Payment completed for amount: MK ${widget.price}'),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.pop(context);
                 },
                 child: Text('OK'),
               ),
@@ -111,6 +78,8 @@ class _PaymentPageState extends State<PaymentPage> {
         },
       );
     } catch (error) {
+      print('Error during payment: $error');
+      // Show error snackbar if payment fails
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error during payment. Please try again.'),
@@ -125,33 +94,78 @@ class _PaymentPageState extends State<PaymentPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Make Payment'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              // Navigate to NavbarBottom when Home icon is clicked
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => NavbarBottom()),
+                (Route<dynamic> route) => false,
+              );
+            },
+          ),
+        ],
       ),
-      body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+      body: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(24.0, 70.0, 24.0, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Price: ${_amountController.text}',
-                      style: TextStyle(fontSize: 18.0),
+                  Text(
+                    'Price:',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: _payWithCard,
-                    child: Text('Pay with Card'),
-                  ),
                   Text(
-                    'Booking Reference: ${widget.bookingReference}',
-                    style: TextStyle(fontSize: 18.0),
+                    'MK${widget.price}',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Color.fromARGB(255, 237, 83, 36),
+                    ),
                   ),
                 ],
               ),
-            ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: _payWithCard,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueGrey[700],
+                  minimumSize: Size(double.infinity, 50.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                child: Text(
+                  'Pay with Card',
+                  style: TextStyle(color: Colors.white, fontSize: 16.0),
+                ),
+              ),
+              SizedBox(height: 16.0),
+              Center(
+                child: Text(
+                  'Booking Reference: ${widget.bookingReference}',
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
