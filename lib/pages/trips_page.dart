@@ -162,7 +162,43 @@ class TripsPage extends StatelessWidget {
                                           ),
                                         ),
                                         ElevatedButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text(
+                                                      "Confirm Cancellation"),
+                                                  content: Text(
+                                                      "Are you sure you want to cancel this booking?"),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(false); // No
+                                                      },
+                                                      child: Text("No"),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(true); // Yes
+                                                      },
+                                                      child: Text("Yes"),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ).then((confirmed) {
+                                              if (confirmed ?? false) {
+                                                // If confirmed is true (or null, defaulting to false), proceed with canceling the booking
+                                                cancelBooking(
+                                                    context,
+                                                    booking[
+                                                        'bookingReference']);
+                                              }
+                                            });
+                                          },
                                           style: ElevatedButton.styleFrom(
                                             foregroundColor: Colors.white,
                                             backgroundColor: Color.fromARGB(
@@ -195,6 +231,58 @@ class TripsPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+Future<void> cancelBooking(
+    BuildContext context, String bookingReference) async {
+  try {
+    // Query the collection to find the document with the matching booking reference
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('bookings')
+        .where('bookingReference', isEqualTo: bookingReference)
+        .get();
+
+    // If there's a matching document, delete it
+    if (snapshot.docs.isNotEmpty) {
+      await snapshot.docs.first.reference.delete();
+
+      // Update or delete related documents in other collections
+      await FirebaseFirestore.instance
+          .collection('payments')
+          .doc(bookingReference)
+          .delete();
+
+      await FirebaseFirestore.instance
+          .collection('passebgers')
+          .doc(bookingReference)
+          .delete();
+
+      // Show success snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Booking canceled successfully'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } else {
+      // If no document found with the given booking reference, show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Booking not found'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  } catch (error) {
+    print('Error canceling booking: $error');
+    // Show error snackbar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Error canceling booking. Please try again.'),
+        backgroundColor: Colors.red,
       ),
     );
   }

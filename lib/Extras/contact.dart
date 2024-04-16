@@ -134,7 +134,9 @@ class _ContactUsPageState extends State<ContactUsPage> {
               _submitForm();
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+              backgroundColor: MaterialStateProperty.all<Color>(
+                Color.fromARGB(255, 237, 83, 36),
+              ),
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             ),
             child: Text('Submit'),

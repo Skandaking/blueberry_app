@@ -1,3 +1,4 @@
+import 'package:blueberry_app/componets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -126,11 +127,11 @@ class _ReviewPageState extends State<ReviewPage> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
+                      MyButton(
+                        onTap: () {
                           _submitFeedback();
                         },
-                        child: const Text('Submit Feedback'),
+                        text: 'Submit Feedback',
                       ),
                     ],
                   ),

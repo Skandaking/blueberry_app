@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Presidential Hotel-five star",
+    "location": "City center - Lilongwe",
+    "rating": 5,
+    "price": "k250000",
+    "image": "lib/images/room2.jpg"
+  },
+  {
+    "name": "Sunbird Capital Hill",
+    "location": "Area 12 - Lilongwe",
+    "rating": 4.0,
+    "price": "k180000",
+    "image": "lib/images/room3.jpg"
+  },
+  {
+    "name": "Sunbird Lilongwe",
+    "location": "Area 3 - Lilongwe",
+    "rating": 4.0,
+    "price": "k150000",
+    "image": "lib/images/three.png"
+  },
+  {
+    "name": "Crossroads Hotel",
+    "location": "Area 2 - Lilongwe",
+    "rating": 4.0,
+    "price": "k175000",
+    "image": "lib/images/two.png"
+  },
+  {
+    "name": "Golden Peacock Hotel",
+    "location": "City center - Lilongwe",
+    "rating": 4.5,
+    "price": "k165000",
+    "image": "lib/images/1-room.jpg"
+  }
+]

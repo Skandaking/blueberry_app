@@ -2,6 +2,7 @@ import 'package:blueberry_app/Extras/about.dart';
 import 'package:blueberry_app/Extras/contact.dart';
 import 'package:blueberry_app/Extras/faq.dart';
 import 'package:blueberry_app/Extras/review.dart';
+import 'package:blueberry_app/pages/notification_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -103,17 +104,12 @@ class SideNavbar extends StatelessWidget {
         ListTile(
           leading: Icon(Icons.notifications),
           title: Text('Notification'),
-          onTap: () => {},
-        ),
-        ListTile(
-          leading: Icon(Icons.calculate_outlined),
-          title: Text('Miles Calculator'),
-          onTap: () => {},
-        ),
-        ListTile(
-          leading: Icon(Icons.compare_arrows),
-          title: Text('COVID-19 Updates'),
-          onTap: () => {},
+          onTap: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NotificationPage()),
+            )
+          },
         ),
 
         //conatct form
@@ -143,40 +139,6 @@ class SideNavbar extends StatelessWidget {
           title: Text('Settings'),
           onTap: () => {},
         ),
-        ListTile(
-          leading: Icon(Icons.logout_rounded),
-          title: Text('Logout'),
-          onTap: () {
-            // Show a confirmation dialog
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text('Logout'),
-                  content: Text('Are you sure you want to logout?'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () {
-                        // Dismiss the dialog and cancel the logout
-                        Navigator.of(context).pop();
-                      },
-                      child: Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        // Dismiss the dialog and proceed with the logout
-                        Navigator.of(context).pop();
-
-                        signUserOut();
-                      },
-                      child: Text('Logout'),
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-        )
       ],
     ));
   }

@@ -4,24 +4,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:blueberry_app/componets/bottom_navbar.dart';
 
-// Import necessary packages and files...
-
-class PaymentPage extends StatefulWidget {
-  final String bookingReference;
+class HotelPaymentPage extends StatefulWidget {
+  final String hotelBookingReference;
   final String price;
 
-  PaymentPage({required this.bookingReference, required this.price});
+  HotelPaymentPage({required this.hotelBookingReference, required this.price});
 
   @override
-  _PaymentPageState createState() => _PaymentPageState();
+  _HotelPaymentPageState createState() => _HotelPaymentPageState();
 }
 
-class _PaymentPageState extends State<PaymentPage> {
+class _HotelPaymentPageState extends State<HotelPaymentPage> {
   Token? _paymentToken;
   PaymentMethod? _paymentMethod;
   bool _isLoading = false;
-
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   void initState() {
@@ -37,7 +33,8 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   Future<void> _payWithCard() async {
-    int amount = int.tryParse(widget.price) ?? 0;
+    // Convert the price to an integer (assuming it's in the format 'MKXXX')
+    int amount = int.tryParse(widget.price.substring(2)) ?? 0;
 
     try {
       final paymentMethod = await StripePayment.paymentRequestWithCardForm(
@@ -49,7 +46,7 @@ class _PaymentPageState extends State<PaymentPage> {
       // Save payment details to Firestore
       await FirebaseFirestore.instance.collection('payments').add({
         'price': amount,
-        'bookingReference': widget.bookingReference,
+        'bookingReference': widget.hotelBookingReference,
         'paymentDate': DateTime.now(),
         'userEmail': FirebaseAuth.instance.currentUser!.email,
       });
@@ -58,7 +55,7 @@ class _PaymentPageState extends State<PaymentPage> {
       await FirebaseFirestore.instance.collection('notifications').add({
         'title': 'Booking Confirmation',
         'message':
-            'You have successfully booked a flight: ${widget.bookingReference}',
+            'You have successfully booked a hotel: ${widget.hotelBookingReference}',
         'userEmail': FirebaseAuth.instance.currentUser!.email,
         'timestamp': DateTime.now(),
       });
@@ -67,24 +64,17 @@ class _PaymentPageState extends State<PaymentPage> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return Builder(
-            // Wrap with Builder widget
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('Payment Successful'),
-                content:
-                    Text('Payment completed for amount: MK ${widget.price}'),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context); // Close the AlertDialog
-                      //Navigator.pop(context); // Close the PaymentPage
-                    },
-                    child: Text('OK'),
-                  ),
-                ],
-              );
-            },
+          return AlertDialog(
+            title: Text('Payment Successful'),
+            content: Text('Payment completed for amount: ${widget.price}'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('OK'),
+              ),
+            ],
           );
         },
       );
@@ -140,7 +130,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     ),
                   ),
                   Text(
-                    'MK${widget.price}',
+                    widget.price,
                     style: TextStyle(
                       fontSize: 18.0,
                       color: Color.fromARGB(255, 237, 83, 36),
@@ -166,7 +156,7 @@ class _PaymentPageState extends State<PaymentPage> {
               SizedBox(height: 16.0),
               Center(
                 child: Text(
-                  'Booking Reference: ${widget.bookingReference}',
+                  'Booking Reference: ${widget.hotelBookingReference}',
                   style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
