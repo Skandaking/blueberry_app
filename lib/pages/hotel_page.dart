@@ -53,11 +53,14 @@ class _HotelPageState extends State<HotelPage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Find What You Want',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
+            child: Center(
+              child: Text(
+                'Find What You Want',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  //color: Color.fromARGB(255, 237, 83, 36),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -70,11 +73,16 @@ class _HotelPageState extends State<HotelPage> {
                   controller: _searchController,
                   decoration: InputDecoration(
                     hintText: 'Search hotels...',
+                    hintStyle:
+                        TextStyle(color: Color.fromARGB(255, 237, 83, 36)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                     suffixIcon: IconButton(
-                      icon: Icon(Icons.clear),
+                      icon: Icon(
+                        Icons.clear,
+                        color: Color.fromARGB(255, 237, 83, 36),
+                      ),
                       onPressed: () {
                         _searchController.clear();
                         setState(() {});
@@ -237,9 +245,19 @@ class HotelCard extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: onTapReserve,
-              child: Text('Reserve'),
+            child: Center(
+              child: ElevatedButton(
+                onPressed: onTapReserve,
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Color.fromARGB(255, 237, 83, 36),
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 62),
+                ),
+                child: Text(
+                  'Reserve',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
             ),
           ),
         ],

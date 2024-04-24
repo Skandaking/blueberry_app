@@ -67,11 +67,15 @@ class _ReviewPageState extends State<ReviewPage> {
                       const Icon(
                         Icons.message,
                         size: 60,
+                        color: Color.fromARGB(255, 237, 83, 36),
                       ),
                       const SizedBox(height: 20),
                       const Text(
                         'Help us improve',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color.fromARGB(255, 237, 83, 36),
+                        ),
                       ),
                       const SizedBox(height: 20),
                       const Text(
@@ -146,19 +150,26 @@ class _ReviewPageState extends State<ReviewPage> {
     final User? currentUser = _auth.currentUser;
 
     if (currentUser != null) {
+      // Get the current timestamp
+      final DateTime now = DateTime.now();
+
+      // Add the review data to Firestore with timestamp
       await _firestore.collection('Reviews').add({
         'Category': _selectedCategory,
         'Fullname': _fullName,
         'Email': _userEmail,
         'Feedback': _feedbackController.text,
+        'Timestamp': now,
       });
 
+      // Show feedback submission confirmation
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Feedback submitted successfully!'),
         ),
       );
 
+      // Clear the feedback text field
       _feedbackController.clear();
     }
   }

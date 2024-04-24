@@ -10,10 +10,6 @@ import 'package:flutter/material.dart';
 class SideNavbar extends StatelessWidget {
   SideNavbar({super.key});
 
-  void signUserOut() {
-    FirebaseAuth.instance.signOut();
-  }
-
   final currentUser = FirebaseAuth.instance.currentUser!;
 
   @override
@@ -65,9 +61,9 @@ class SideNavbar extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          currentAccountPicture: CircleAvatar(
+          /*currentAccountPicture: CircleAvatar(
             child: ClipOval(),
-          ),
+          ), */
           decoration: BoxDecoration(
             color: Color.fromARGB(255, 237, 83, 36),
             image: DecorationImage(

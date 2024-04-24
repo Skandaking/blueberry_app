@@ -26,15 +26,19 @@ class _ContactUsPageState extends State<ContactUsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
+            const Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
               child: Text(
                 'Welcome to Our Support Center!',
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 237, 83, 36),
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
-            Text(
+            const Text(
               'Our team is ready to assist you. Please feel free to reach out to us with any questions, concerns, or feedback.',
               style: TextStyle(fontSize: 16.0),
               textAlign: TextAlign.center,

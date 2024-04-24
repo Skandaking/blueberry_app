@@ -17,6 +17,7 @@ class AboutPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 237, 83, 36),
               ),
             ),
             SizedBox(height: 20.0),

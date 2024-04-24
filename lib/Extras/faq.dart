@@ -18,7 +18,7 @@ class _FAQPageState extends State<FAQPage> {
       QuestionAnswer(
         question: 'How do I book a flight?',
         answer:
-            'To book a flight, you can either visit our website or use our mobile app. Select your destination, travel dates, and preferred flight times. Then proceed to payment to confirm your booking.',
+            'To book a flight, you can go to book page . enter your location(nearest airport), your destination, traval dates and select your preferred fare option click on search flight. from the list that will diplay select the flight you want to book',
       ),
       QuestionAnswer(
         question: 'Can I cancel or change my booking?',
@@ -28,7 +28,7 @@ class _FAQPageState extends State<FAQPage> {
       QuestionAnswer(
         question: 'How can I contact customer support?',
         answer:
-            'You can contact our customer support team via phone, email, or live chat. Visit our website for contact details or access the support options in our mobile app.',
+            'You can contact our customer support team via phone, email, or sendign a message, on customer support page.',
       ),
       QuestionAnswer(
         question: 'What payment methods do you accept?',
@@ -102,9 +102,15 @@ class _FAQPageState extends State<FAQPage> {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: _searchController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Search',
-                prefixIcon: Icon(Icons.search),
+                labelStyle: TextStyle(
+                  color: Color.fromARGB(255, 237, 83, 36),
+                ),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Color.fromARGB(255, 237, 83, 36),
+                ),
                 border: OutlineInputBorder(),
               ),
               onChanged: _filterFaqs,

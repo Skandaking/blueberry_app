@@ -45,6 +45,7 @@ class NotificationPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 237, 83, 36),
                 ),
               ),
               subtitle: Column(
@@ -62,7 +63,10 @@ class NotificationPage extends StatelessWidget {
                 ],
               ),
               trailing: IconButton(
-                icon: Icon(Icons.delete),
+                icon: Icon(
+                  Icons.delete,
+                  color: Color.fromARGB(255, 237, 83, 36),
+                ),
                 onPressed: () =>
                     _deleteNotification(context, notification.reference),
               ),
