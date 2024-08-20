@@ -30,8 +30,8 @@ class _PaymentPageState extends State<PaymentPage> {
       StripeOptions(
         publishableKey:
             'pk_test_51P2JHGRrldZeIbJC83F3Rs5vxU1IrznOIf1dqdJxbMNCFWW5GJ4QrtpZ6eXsqmCBbLwOw0ByFQwMWOeYtKpdn8AK004rqFawWL',
-        merchantId: 'your_merchant_id', // Optional
-        androidPayMode: 'test', // Android only: 'test' or 'production'
+        merchantId: 'your_merchant_id',
+        androidPayMode: 'test',
       ),
     );
   }
