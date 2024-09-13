@@ -8,7 +8,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'hotel_page.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key});
+  const HomePage({
+    super.key,
+  });
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -61,14 +63,15 @@ class _HomePageState extends State<HomePage> {
         drawer: SideNavbar(),
         backgroundColor: Colors.grey[300],
         appBar: AppBar(
-          title: Center(child: Text('Home')),
+          title: const Center(child: Text('Home')),
           actions: [
             IconButton(
-                icon: Icon(Icons.notifications),
+                icon: const Icon(Icons.notifications),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => NotificationPage()),
+                    MaterialPageRoute(
+                        builder: (context) => const NotificationPage()),
                   );
                 }),
           ],
@@ -76,7 +79,7 @@ class _HomePageState extends State<HomePage> {
             indicatorColor: Theme.of(context)
                 .primaryColor, // Color of the selected tab indicator
             labelColor: Theme.of(context).primaryColor,
-            tabs: [
+            tabs: const [
               Tab(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -120,10 +123,10 @@ class _HomePageState extends State<HomePage> {
                                   controller: searchController,
                                   decoration: InputDecoration(
                                     hintText: 'Search flights',
-                                    prefixIcon: Icon(Icons.search),
+                                    prefixIcon: const Icon(Icons.search),
                                     filled: true,
                                     fillColor: Colors.white,
-                                    contentPadding: EdgeInsets.only(
+                                    contentPadding: const EdgeInsets.only(
                                         left: 10,
                                         right: 10,
                                         top: 10,
@@ -160,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           height: 160,
                           child: CarouselSlider.builder(
                             itemCount: upcomingFlights.length,

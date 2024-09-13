@@ -31,7 +31,7 @@ class FirestoreService {
         'subscribeBookingUpdates': subscribeBookingUpdates,
       });
     } catch (error) {
-      throw error;
+      rethrow;
     }
   }
 }

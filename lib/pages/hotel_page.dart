@@ -10,14 +10,16 @@ import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore packa
 import '../Methods/search_hotel.dart';
 
 class HotelPage extends StatefulWidget {
+  const HotelPage({super.key});
+
   @override
   _HotelPageState createState() => _HotelPageState();
 }
 
 class _HotelPageState extends State<HotelPage> {
-  DateTime _selectedDate = DateTime.now();
-  int _numberOfRooms = 1;
-  int _numberOfGuests = 1;
+  final DateTime _selectedDate = DateTime.now();
+  final int _numberOfRooms = 1;
+  final int _numberOfGuests = 1;
   List<Hotel> hotels = [];
   late TextEditingController _searchController;
 
@@ -51,8 +53,8 @@ class _HotelPageState extends State<HotelPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Center(
               child: Text(
                 'Find What You Want',
@@ -73,13 +75,13 @@ class _HotelPageState extends State<HotelPage> {
                   controller: _searchController,
                   decoration: InputDecoration(
                     hintText: 'Search hotels...',
-                    hintStyle:
-                        TextStyle(color: Color.fromARGB(255, 237, 83, 36)),
+                    hintStyle: const TextStyle(
+                        color: Color.fromARGB(255, 237, 83, 36)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                     suffixIcon: IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.clear,
                         color: Color.fromARGB(255, 237, 83, 36),
                       ),
@@ -89,7 +91,7 @@ class _HotelPageState extends State<HotelPage> {
                       },
                     ),
                     fillColor: Colors.white,
-                    contentPadding: EdgeInsets.all(10),
+                    contentPadding: const EdgeInsets.all(10),
                   ),
                   onChanged: (value) {
                     setState(() {});
@@ -98,10 +100,10 @@ class _HotelPageState extends State<HotelPage> {
               ],
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Expanded(
             child: hotels.isEmpty
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : ListView.builder(
@@ -184,7 +186,7 @@ class HotelCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         color: Colors.white,
@@ -193,7 +195,7 @@ class HotelCard extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 1,
             blurRadius: 3,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -213,14 +215,14 @@ class HotelCard extends StatelessWidget {
               children: [
                 Text(
                   name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   price,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16.0,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -250,10 +252,11 @@ class HotelCard extends StatelessWidget {
                 onPressed: onTapReserve,
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: Color.fromARGB(255, 237, 83, 36),
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 62),
+                  backgroundColor: const Color.fromARGB(255, 237, 83, 36),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 62),
                 ),
-                child: Text(
+                child: const Text(
                   'Reserve',
                   style: TextStyle(fontSize: 18),
                 ),

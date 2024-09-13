@@ -19,15 +19,15 @@ class _ContactUsPageState extends State<ContactUsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contact Us'),
+        title: const Text('Contact Us'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              padding: EdgeInsets.symmetric(vertical: 20.0),
               child: Text(
                 'Welcome to Our Support Center!',
                 style: TextStyle(
@@ -43,14 +43,14 @@ class _ContactUsPageState extends State<ContactUsPage> {
               style: TextStyle(fontSize: 16.0),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 40.0),
+            const SizedBox(height: 40.0),
             _buildContactOptions(),
-            SizedBox(height: 40.0),
-            Text(
+            const SizedBox(height: 40.0),
+            const Text(
               'Send us a Message',
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             _buildContactForm(),
           ],
         ),
@@ -92,7 +92,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
           iconSize: 40.0,
           onPressed: onPressed,
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         Text(label),
       ],
     );
@@ -105,7 +105,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
         children: [
           TextFormField(
             controller: _topicController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Topic',
               border: OutlineInputBorder(),
             ),
@@ -116,11 +116,11 @@ class _ContactUsPageState extends State<ContactUsPage> {
               return null;
             },
           ),
-          SizedBox(height: 20.0),
+          const SizedBox(height: 20.0),
           TextFormField(
             controller: _messageController,
             maxLines: 5,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Message',
               hintText: 'Enter your message here',
               border: OutlineInputBorder(),
@@ -132,18 +132,18 @@ class _ContactUsPageState extends State<ContactUsPage> {
               return null;
             },
           ),
-          SizedBox(height: 20.0),
+          const SizedBox(height: 20.0),
           TextButton(
             onPressed: () {
               _submitForm();
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                Color.fromARGB(255, 237, 83, 36),
+              backgroundColor: WidgetStateProperty.all<Color>(
+                const Color.fromARGB(255, 237, 83, 36),
               ),
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+              foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
             ),
-            child: Text('Submit'),
+            child: const Text('Submit'),
           ),
         ],
       ),
@@ -153,7 +153,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
   Future<void> _submitForm() async {
     if (_topicController.text.isEmpty || _messageController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Please fill in all fields.'),
         ),
       );
@@ -164,7 +164,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
       final currentUser = FirebaseAuth.instance.currentUser;
       if (currentUser == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('User not logged in.'),
           ),
         );
@@ -179,7 +179,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
         'timestamp': Timestamp.now(),
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Message submitted successfully!'),
         ),
       );
@@ -188,7 +188,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
     } catch (e) {
       print('Error submitting message: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('An error occurred. Please try again later.'),
         ),
       );
@@ -201,7 +201,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
       await launch(url);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Could not launch call app'),
         ),
       );
@@ -214,7 +214,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
       await launch(url);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Could not launch email app'),
         ),
       );
@@ -227,7 +227,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
       await launch(url);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Could not launch SMS app'),
         ),
       );

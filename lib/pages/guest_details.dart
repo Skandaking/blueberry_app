@@ -33,7 +33,7 @@ class _GuestDetailsPageState extends State<GuestDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Guest Details'),
+        title: const Text('Guest Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -43,22 +43,22 @@ class _GuestDetailsPageState extends State<GuestDetailsPage> {
             children: [
               Text(
                 'Hotel Booking Reference: ${widget.hotelBookingReference}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Price: ${widget.price}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Enter Guest Details:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _firstNameController,
-                decoration: InputDecoration(labelText: 'First Name'),
+                decoration: const InputDecoration(labelText: 'First Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your first name';
@@ -68,7 +68,7 @@ class _GuestDetailsPageState extends State<GuestDetailsPage> {
               ),
               TextFormField(
                 controller: _lastNameController,
-                decoration: InputDecoration(labelText: 'Last Name'),
+                decoration: const InputDecoration(labelText: 'Last Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your last name';
@@ -78,7 +78,7 @@ class _GuestDetailsPageState extends State<GuestDetailsPage> {
               ),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email Address'),
+                decoration: const InputDecoration(labelText: 'Email Address'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email address';
@@ -88,7 +88,7 @@ class _GuestDetailsPageState extends State<GuestDetailsPage> {
               ),
               TextFormField(
                 controller: _countryController,
-                decoration: InputDecoration(labelText: 'Country/Region'),
+                decoration: const InputDecoration(labelText: 'Country/Region'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your country/region';
@@ -98,7 +98,7 @@ class _GuestDetailsPageState extends State<GuestDetailsPage> {
               ),
               TextFormField(
                 controller: _phoneNumberController,
-                decoration: InputDecoration(labelText: 'Phone Number'),
+                decoration: const InputDecoration(labelText: 'Phone Number'),
                 keyboardType: TextInputType.phone,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -107,8 +107,8 @@ class _GuestDetailsPageState extends State<GuestDetailsPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Select Purpose of Trip:',
                 style: TextStyle(fontSize: 16),
               ),
@@ -127,7 +127,7 @@ class _GuestDetailsPageState extends State<GuestDetailsPage> {
                   );
                 }).toList(),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               MyButton(
                 onTap: _confirmDetails,
                 text: ('Confirm Guest Details'),
@@ -148,7 +148,7 @@ class _GuestDetailsPageState extends State<GuestDetailsPage> {
 
         // Show a snackbar indicating the details are confirmed
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Guest details confirmed'),
           ),
         );
@@ -160,7 +160,7 @@ class _GuestDetailsPageState extends State<GuestDetailsPage> {
       } else {
         // Show a snackbar if details are already confirmed
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Guest details already confirmed'),
           ),
         );

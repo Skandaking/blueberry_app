@@ -34,10 +34,10 @@ class _BookingPageState extends State<BookingPage> {
       child: Scaffold(
         drawer: SideNavbar(),
         appBar: AppBar(
-          title: Center(child: Text('Flight Booking')),
+          title: const Center(child: Text('Flight Booking')),
           actions: [
             IconButton(
-                icon: Icon(Icons.history),
+                icon: const Icon(Icons.history),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -49,7 +49,7 @@ class _BookingPageState extends State<BookingPage> {
           bottom: TabBar(
             indicatorColor: Theme.of(context).primaryColor,
             labelColor: Theme.of(context).primaryColor,
-            tabs: [
+            tabs: const [
               Tab(text: 'One way'),
               Tab(text: 'Round trip'),
             ],
@@ -77,19 +77,19 @@ class _BookingPageState extends State<BookingPage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   'From',
                                   style: TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 5.0),
+                                const SizedBox(height: 5.0),
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: TextField(
                                     controller: _fromCityController,
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       hintText: 'Departure',
                                       border: InputBorder.none,
                                     ),
@@ -104,8 +104,8 @@ class _BookingPageState extends State<BookingPage> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.swap_horiz),
-                            color: Color.fromARGB(255, 237, 83, 36),
+                            icon: const Icon(Icons.swap_horiz),
+                            color: const Color.fromARGB(255, 237, 83, 36),
                             onPressed: () {
                               // Implement functionality to swap from and to
                             },
@@ -114,17 +114,17 @@ class _BookingPageState extends State<BookingPage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   'To',
                                   style: TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 5.0),
+                                const SizedBox(height: 5.0),
                                 TextField(
                                   controller: _toCityController,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     hintText: 'Arrival',
                                     border: InputBorder.none,
                                   ),
@@ -140,7 +140,7 @@ class _BookingPageState extends State<BookingPage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 25.0),
+                    const SizedBox(height: 25.0),
                     // Departure date
                     Row(
                       children: [
@@ -151,7 +151,7 @@ class _BookingPageState extends State<BookingPage> {
                             color: Colors.grey[600],
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         TextButton(
                           onPressed: () {
                             _selectDate(context, true);
@@ -160,14 +160,14 @@ class _BookingPageState extends State<BookingPage> {
                             departureDate == null
                                 ? 'Select Date'
                                 : '${departureDate!.day}/${departureDate!.month}/${departureDate!.year}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Color.fromARGB(255, 237, 83, 36),
                             ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 25.0),
+                    const SizedBox(height: 25.0),
                     // Passengers and class selection
                     Row(
                       children: [
@@ -201,7 +201,7 @@ class _BookingPageState extends State<BookingPage> {
                       ],
                     ),
 
-                    SizedBox(height: 70.0),
+                    const SizedBox(height: 70.0),
 
                     // Search flights button
                     SizedBox(
@@ -214,7 +214,7 @@ class _BookingPageState extends State<BookingPage> {
                               departureDate == null ||
                               travelClass == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 content: Text('Please fill in all the fields'),
                                 duration: Duration(seconds: 2),
                               ),
@@ -229,7 +229,7 @@ class _BookingPageState extends State<BookingPage> {
                                 searchFlightsByArrival(toCity!, travelClass!);
                             if (searchResults.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
+                                const SnackBar(
                                   content: Text('No search results found'),
                                   duration: Duration(seconds: 2),
                                 ),
@@ -272,19 +272,19 @@ class _BookingPageState extends State<BookingPage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   'From',
                                   style: TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 5.0),
+                                const SizedBox(height: 5.0),
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: TextField(
                                     controller: _fromCityController,
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       hintText: 'Departure',
                                       border: InputBorder.none,
                                     ),
@@ -299,8 +299,8 @@ class _BookingPageState extends State<BookingPage> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.swap_horiz_rounded),
-                            color: Color.fromARGB(255, 237, 83, 36),
+                            icon: const Icon(Icons.swap_horiz_rounded),
+                            color: const Color.fromARGB(255, 237, 83, 36),
                             onPressed: () {
                               // Implement functionality to swap from and to
                             },
@@ -309,19 +309,19 @@ class _BookingPageState extends State<BookingPage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   'To',
                                   style: TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 5.0),
+                                const SizedBox(height: 5.0),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 10),
                                   child: TextField(
                                     controller: _toCityController,
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       hintText: 'Arrival',
                                       border: InputBorder.none,
                                     ),
@@ -338,7 +338,7 @@ class _BookingPageState extends State<BookingPage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 25.0),
+                    const SizedBox(height: 25.0),
                     // Departure and return dates
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -354,7 +354,7 @@ class _BookingPageState extends State<BookingPage> {
                                 color: Colors.grey[600],
                               ),
                             ),
-                            SizedBox(height: 5.0),
+                            const SizedBox(height: 5.0),
                             TextButton(
                               onPressed: () {
                                 _selectDate(context, true);
@@ -363,7 +363,7 @@ class _BookingPageState extends State<BookingPage> {
                                 departureDate == null
                                     ? 'Select Departure Date'
                                     : '${departureDate!.day}/${departureDate!.month}/${departureDate!.year}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Color.fromARGB(255, 237, 83, 36),
                                 ),
                               ),
@@ -381,7 +381,7 @@ class _BookingPageState extends State<BookingPage> {
                                 color: Colors.grey[600],
                               ),
                             ),
-                            SizedBox(height: 5.0),
+                            const SizedBox(height: 5.0),
                             TextButton(
                               onPressed: () {
                                 _selectDate(context, false);
@@ -390,7 +390,7 @@ class _BookingPageState extends State<BookingPage> {
                                 returnDate == null
                                     ? 'Select Return Date'
                                     : '${returnDate!.day}/${returnDate!.month}/${returnDate!.year}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Color.fromARGB(255, 237, 83, 36),
                                 ),
                               ),
@@ -399,7 +399,7 @@ class _BookingPageState extends State<BookingPage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 25.0),
+                    const SizedBox(height: 25.0),
                     // Passengers and class selection
                     Row(
                       children: [
@@ -433,7 +433,7 @@ class _BookingPageState extends State<BookingPage> {
                       ],
                     ),
 
-                    SizedBox(height: 70.0),
+                    const SizedBox(height: 70.0),
                     // Search flights button
                     SizedBox(
                       width: double.infinity,
@@ -446,7 +446,7 @@ class _BookingPageState extends State<BookingPage> {
                               returnDate == null ||
                               travelClass == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 content: Text('Please fill in all the fields'),
                                 duration: Duration(seconds: 2),
                               ),
@@ -461,7 +461,7 @@ class _BookingPageState extends State<BookingPage> {
                                 searchFlightsByArrival(toCity!, travelClass!);
                             if (searchResults.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
+                                const SnackBar(
                                   content: Text('No search results found'),
                                   duration: Duration(seconds: 2),
                                 ),

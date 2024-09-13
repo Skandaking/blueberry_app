@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FAQPage extends StatefulWidget {
+  const FAQPage({super.key});
+
   @override
   _FAQPageState createState() => _FAQPageState();
 }
@@ -94,7 +96,7 @@ class _FAQPageState extends State<FAQPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FAQ'),
+        title: const Text('FAQ'),
       ),
       body: Column(
         children: [
@@ -123,15 +125,15 @@ class _FAQPageState extends State<FAQPage> {
                 return ExpansionTile(
                   title: Text(
                     filteredFaqs[index].question,
-                    style:
-                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 18.0, fontWeight: FontWeight.bold),
                   ),
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
                         filteredFaqs[index].answer,
-                        style: TextStyle(fontSize: 16.0),
+                        style: const TextStyle(fontSize: 16.0),
                       ),
                     ),
                   ],

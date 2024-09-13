@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 class FlightView extends StatelessWidget {
+  FlightView({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 450.0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
             child: Text(
               'Explore Our Fleet',
@@ -18,7 +20,7 @@ class FlightView extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 10.0),
+          const SizedBox(height: 10.0),
           Expanded(
             child: Row(
               children: [
@@ -43,7 +45,7 @@ class FlightView extends StatelessWidget {
 
   Widget _buildFlightCard(String imagePath) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
+      padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
       child: SizedBox(
         width: 200.0,
         height: 450.0, // Fixed height for each card
@@ -66,13 +68,13 @@ class FlightView extends StatelessWidget {
                   left: 0,
                   right: 0,
                   child: Container(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     color: Colors.black
                         .withOpacity(0.5), // Background color for image name
                     child: Text(
                       // Extract the image name from the path (assuming a specific format)
                       imagePath.split('/').last.split('.').first,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14.0,
                         color: Colors.white, // Text color for image name
                         fontWeight: FontWeight.bold,
@@ -82,16 +84,16 @@ class FlightView extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 5.0),
-            Text(
+            const SizedBox(height: 5.0),
+            const Text(
               'Flight Description', // Replace with actual flight description
               style: TextStyle(
                 fontSize: 14.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 5.0),
-            Text(
+            const SizedBox(height: 5.0),
+            const Text(
               'Additional details about the flight...', // Replace with actual flight details
               style: TextStyle(
                 fontSize: 12.0,

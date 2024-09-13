@@ -26,11 +26,11 @@ class _ReviewPageState extends State<ReviewPage> {
 
   Future<void> _getUserDetails() async {
     final User? currentUser = _auth.currentUser;
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     if (currentUser != null) {
       final DocumentSnapshot userSnapshot =
-          await _firestore.collection('Users').doc(currentUser.email).get();
+          await firestore.collection('Users').doc(currentUser.email).get();
 
       final userData = userSnapshot.data() as Map<String, dynamic>;
 
@@ -55,7 +55,7 @@ class _ReviewPageState extends State<ReviewPage> {
         title: const Text('Review'),
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Center(
                 child: Padding(
@@ -146,7 +146,7 @@ class _ReviewPageState extends State<ReviewPage> {
   }
 
   Future<void> _submitFeedback() async {
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
     final User? currentUser = _auth.currentUser;
 
     if (currentUser != null) {
@@ -154,7 +154,7 @@ class _ReviewPageState extends State<ReviewPage> {
       final DateTime now = DateTime.now();
 
       // Add the review data to Firestore with timestamp
-      await _firestore.collection('Reviews').add({
+      await firestore.collection('Reviews').add({
         'Category': _selectedCategory,
         'Fullname': _fullName,
         'Email': _userEmail,

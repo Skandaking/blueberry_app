@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SearchHistoryPage extends StatefulWidget {
+  const SearchHistoryPage({super.key});
+
   @override
   _SearchHistoryPageState createState() => _SearchHistoryPageState();
 }
@@ -26,7 +28,7 @@ class _SearchHistoryPageState extends State<SearchHistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search History'),
+        title: const Text('Search History'),
       ),
       body: currentUser != null // Check if currentUser is not null
           ? StreamBuilder<QuerySnapshot>(
@@ -40,12 +42,12 @@ class _SearchHistoryPageState extends State<SearchHistoryPage> {
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 final searchHistoryDocs = snapshot.data!.docs;
                 if (searchHistoryDocs.isEmpty) {
-                  return Center(child: Text('No search history found.'));
+                  return const Center(child: Text('No search history found.'));
                 }
 
                 return ListView.builder(
@@ -67,7 +69,7 @@ class _SearchHistoryPageState extends State<SearchHistoryPage> {
                 );
               },
             )
-          : Center(
+          : const Center(
               child:
                   CircularProgressIndicator(), // Show loading indicator if currentUser is null
             ),

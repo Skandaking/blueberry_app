@@ -37,7 +37,7 @@ class SideNavbar extends StatelessWidget {
                 if (data != null) {
                   return Text(
                     "${data['Firstname']} ${data['Lastname']}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color.fromARGB(255, 237, 83, 36),
                       fontSize: 20,
                     ),
@@ -45,7 +45,7 @@ class SideNavbar extends StatelessWidget {
                 }
               }
 
-              return Text(
+              return const Text(
                 "Loading...",
                 style: TextStyle(
                   color: Color.fromARGB(255, 237, 83, 36),
@@ -56,7 +56,7 @@ class SideNavbar extends StatelessWidget {
           ),
           accountEmail: Text(
             currentUser.email!,
-            style: TextStyle(
+            style: const TextStyle(
               color: Color.fromARGB(255, 237, 83, 36),
               fontSize: 20,
             ),
@@ -64,7 +64,7 @@ class SideNavbar extends StatelessWidget {
           /*currentAccountPicture: CircleAvatar(
             child: ClipOval(),
           ), */
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color.fromARGB(255, 237, 83, 36),
             image: DecorationImage(
               image: AssetImage('lib/images/bg1.jpg'),
@@ -73,13 +73,13 @@ class SideNavbar extends StatelessWidget {
           ),
         ),
         ListTile(
-          leading: Icon(Icons.flight_takeoff),
-          title: Text('Flight Status'),
+          leading: const Icon(Icons.flight_takeoff),
+          title: const Text('Flight Status'),
           onTap: () => {},
         ),
         ListTile(
-          leading: Icon(Icons.question_mark_rounded),
-          title: Text('FAQ'),
+          leading: const Icon(Icons.question_mark_rounded),
+          title: const Text('FAQ'),
           onTap: () {
             Navigator.push(
               context,
@@ -88,40 +88,40 @@ class SideNavbar extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: Icon(Icons.feedback_outlined),
-          title: Text('Feedback'),
+          leading: const Icon(Icons.feedback_outlined),
+          title: const Text('Feedback'),
           onTap: () => {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ReviewPage()),
+              MaterialPageRoute(builder: (context) => const ReviewPage()),
             )
           },
         ),
         ListTile(
-          leading: Icon(Icons.notifications),
-          title: Text('Notification'),
+          leading: const Icon(Icons.notifications),
+          title: const Text('Notification'),
           onTap: () => {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => NotificationPage()),
+              MaterialPageRoute(builder: (context) => const NotificationPage()),
             )
           },
         ),
 
         //conatct form
         ListTile(
-          leading: Icon(Icons.contact_phone),
-          title: Text('Contact Us'),
+          leading: const Icon(Icons.contact_phone),
+          title: const Text('Contact Us'),
           onTap: () => {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ContactUsPage()),
+              MaterialPageRoute(builder: (context) => const ContactUsPage()),
             )
           },
         ),
         ListTile(
-          leading: Icon(Icons.more_horiz),
-          title: Text('About Us'),
+          leading: const Icon(Icons.more_horiz),
+          title: const Text('About Us'),
           onTap: () => {
             Navigator.push(
               context,
@@ -129,10 +129,10 @@ class SideNavbar extends StatelessWidget {
             )
           },
         ),
-        Divider(),
+        const Divider(),
         ListTile(
-          leading: Icon(Icons.settings),
-          title: Text('Settings'),
+          leading: const Icon(Icons.settings),
+          title: const Text('Settings'),
           onTap: () => {},
         ),
       ],

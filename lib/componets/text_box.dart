@@ -30,7 +30,7 @@ class MyTextBox extends StatelessWidget {
               //sectionname
               Text(
                 sectionName,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color.fromARGB(255, 237, 83, 36),
                 ),
               ),
@@ -38,7 +38,7 @@ class MyTextBox extends StatelessWidget {
               //button
               IconButton(
                   onPressed: onPressed,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.edit,
                     color: Color.fromARGB(255, 237, 83, 36),
                   ))

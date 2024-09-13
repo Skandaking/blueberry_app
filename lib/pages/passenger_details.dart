@@ -8,8 +8,8 @@ class PassengerInformationPage extends StatefulWidget {
   final String bookingReference;
   final String price;
 
-  PassengerInformationPage(
-      {required this.bookingReference, required this.price});
+  const PassengerInformationPage(
+      {super.key, required this.bookingReference, required this.price});
 
   @override
   _PassengerInformationPageState createState() =>
@@ -17,7 +17,7 @@ class PassengerInformationPage extends StatefulWidget {
 }
 
 class _PassengerInformationPageState extends State<PassengerInformationPage> {
-  bool _autofillFromProfile = false;
+  final bool _autofillFromProfile = false;
   String _title = "";
   String _firstName = "";
   String _middleName = "";
@@ -28,7 +28,7 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
   String _phoneNumber = "";
   bool _saveContactDetails = false;
   bool _subscribeBookingUpdates = false;
-  bool _subscribePromotions = false;
+  final bool _subscribePromotions = false;
   bool _confirmed = false;
 
   void _showDatePicker() {
@@ -50,7 +50,7 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
     // Check if passenger details are already confirmed
     if (_confirmed) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Passenger details already confirmed'),
           backgroundColor: Colors.orange,
         ),
@@ -74,7 +74,7 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
       );
       // Show success message or handle success as needed
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Passenger details saved successfully'),
           backgroundColor: Colors.green,
         ),
@@ -91,7 +91,7 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
         ),
       );
       // Optionally, re-throw the error to propagate it up
-      throw error;
+      rethrow;
     }
   }
 
@@ -99,10 +99,10 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Passenger Information'),
+        title: const Text('Passenger Information'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -113,13 +113,14 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
                 alignment: Alignment.bottomLeft,
                 child: Text(
                   'Booking Reference: ${widget.bookingReference}',
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16.0, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
 
             // Passenger details
-            Text(
+            const Text(
               'Passenger Details:',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
@@ -127,8 +128,8 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
             // Title (optional)
             DropdownButtonFormField<String>(
               value: _title,
-              hint: Text('Title (Optional)'),
-              items: [
+              hint: const Text('Title (Optional)'),
+              items: const [
                 DropdownMenuItem<String>(
                     value: "", child: Text('-- Select Title --')),
                 DropdownMenuItem<String>(value: "Mr", child: Text('Mr.')),
@@ -140,34 +141,35 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
 
             // First Name
             TextFormField(
-              decoration: InputDecoration(labelText: 'First Name'),
+              decoration: const InputDecoration(labelText: 'First Name'),
               onChanged: (value) => _firstName = value,
             ),
 
             // Middle Name (Optional)
             TextFormField(
-              decoration: InputDecoration(labelText: 'Middle Name (Optional)'),
+              decoration:
+                  const InputDecoration(labelText: 'Middle Name (Optional)'),
               onChanged: (value) => _middleName = value,
             ),
             TextFormField(
-              decoration: InputDecoration(labelText: 'Last Name'),
+              decoration: const InputDecoration(labelText: 'Last Name'),
               onChanged: (value) => _lastName = value,
             ),
 
             // Date of Birth
             Row(
               children: [
-                Text('Date of Birth:'),
-                SizedBox(width: 10.0),
+                const Text('Date of Birth:'),
+                const SizedBox(width: 10.0),
                 TextButton.icon(
                   onPressed: _showDatePicker,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.calendar_today,
                     color: Color.fromARGB(255, 237, 83, 36),
                   ),
                   label: Text(
                     DateFormat('yyyy-MM-dd').format(_dateOfBirth),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color.fromARGB(255, 237, 83, 36),
                     ),
                   ),
@@ -178,46 +180,46 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
             // Gender
             Row(
               children: [
-                Text('Gender:'),
-                SizedBox(width: 10.0),
+                const Text('Gender:'),
+                const SizedBox(width: 10.0),
                 Radio(
                   value: "male",
                   groupValue: _gender,
                   onChanged: (value) => setState(() => _gender = value!),
                 ),
-                Text('Male'),
-                SizedBox(width: 10.0),
+                const Text('Male'),
+                const SizedBox(width: 10.0),
                 Radio(
                   value: "female",
                   groupValue: _gender,
                   onChanged: (value) => setState(() => _gender = value!),
                 ),
-                Text('Female'),
-                SizedBox(width: 10.0),
+                const Text('Female'),
+                const SizedBox(width: 10.0),
                 Radio(
                   value: "other",
                   groupValue: _gender,
                   onChanged: (value) => setState(() => _gender = value!),
                 ),
-                Text('Other'),
+                const Text('Other'),
               ],
             ),
 
             // Contact Details
-            Text(
+            const Text(
               'Contact Details:',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
 
             // Email
             TextFormField(
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(labelText: 'Email'),
               onChanged: (value) => _email = value,
             ),
 
             // Phone Number
             TextFormField(
-              decoration: InputDecoration(labelText: 'Phone Number'),
+              decoration: const InputDecoration(labelText: 'Phone Number'),
               onChanged: (value) => _phoneNumber = value,
             ),
 
@@ -229,7 +231,7 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
                   onChanged: (value) =>
                       setState(() => _saveContactDetails = value!),
                 ),
-                Expanded(
+                const Expanded(
                   child: Text(
                     'Save Contact Details for Next Booking',
                     overflow: TextOverflow.ellipsis,
@@ -246,7 +248,7 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
                   onChanged: (value) =>
                       setState(() => _subscribeBookingUpdates = value!),
                 ),
-                Expanded(
+                const Expanded(
                   child: Text(
                     'Subscribe to Booking & Flight Schedule Promotions',
                   ),
@@ -264,7 +266,7 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
                     _email.isEmpty ||
                     _phoneNumber.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text('Please fill in all required fields'),
                       backgroundColor: Colors.red,
                     ),
@@ -287,7 +289,7 @@ class _PassengerInformationPageState extends State<PassengerInformationPage> {
 
             // Confirmation Message
             if (_confirmed)
-              Text(
+              const Text(
                 'Passenger details confirmed!',
                 style: TextStyle(color: Colors.green, fontSize: 16.0),
               ),

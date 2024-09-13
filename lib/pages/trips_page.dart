@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TripsPage extends StatelessWidget {
-  const TripsPage({Key? key});
+  const TripsPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +17,11 @@ class TripsPage extends StatelessWidget {
         drawer: SideNavbar(),
         backgroundColor: Colors.grey[300],
         appBar: AppBar(
-          title: Center(child: Text('My Trips')),
+          title: const Center(child: Text('My Trips')),
           bottom: TabBar(
             indicatorColor: Theme.of(context).primaryColor,
             labelColor: Theme.of(context).primaryColor,
-            tabs: [
+            tabs: const [
               Tab(text: 'Upcoming Flights'),
               Tab(text: 'Hotel check ins'),
             ],
@@ -28,7 +30,7 @@ class TripsPage extends StatelessWidget {
         body: TabBarView(
           children: [
             currentUser == null
-                ? Center(child: Text('No user signed in'))
+                ? const Center(child: Text('No user signed in'))
                 : FutureBuilder<QuerySnapshot>(
                     future: FirebaseFirestore.instance
                         .collection('bookings')
@@ -36,12 +38,12 @@ class TripsPage extends StatelessWidget {
                         .get(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
                         return Center(child: Text('Error: ${snapshot.error}'));
                       } else if (snapshot.data == null ||
                           snapshot.data!.docs.isEmpty) {
-                        return Center(child: Text('No bookings found'));
+                        return const Center(child: Text('No bookings found'));
                       } else {
                         // Display bookings in a ListView
                         return ListView.builder(
@@ -49,22 +51,22 @@ class TripsPage extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final booking = snapshot.data!.docs[index];
                             return Card(
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 20),
                               color: Colors.grey[300],
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: ListTile(
-                                contentPadding: EdgeInsets.all(20),
-                                leading: Icon(
+                                contentPadding: const EdgeInsets.all(20),
+                                leading: const Icon(
                                   Icons.flight,
                                   color: Color.fromARGB(255, 237, 83, 36),
                                   size: 32,
                                 ),
                                 title: Text(
                                   'Flight Number ${booking['flightNumber']}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromARGB(255, 237, 83, 36),
@@ -73,7 +75,7 @@ class TripsPage extends StatelessWidget {
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: 10),
+                                    const SizedBox(height: 10),
                                     Row(
                                       children: [
                                         Icon(
@@ -81,7 +83,7 @@ class TripsPage extends StatelessWidget {
                                           color: Colors.grey[600],
                                           size: 16,
                                         ),
-                                        SizedBox(width: 5),
+                                        const SizedBox(width: 5),
                                         Text(
                                           'Departure: ${booking['departure']}',
                                           style: TextStyle(
@@ -92,7 +94,7 @@ class TripsPage extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 5),
+                                    const SizedBox(height: 5),
                                     Row(
                                       children: [
                                         Icon(
@@ -100,7 +102,7 @@ class TripsPage extends StatelessWidget {
                                           color: Colors.grey[600],
                                           size: 16,
                                         ),
-                                        SizedBox(width: 5),
+                                        const SizedBox(width: 5),
                                         Text(
                                           'Arrival: ${booking['arrival']}',
                                           style: TextStyle(
@@ -111,7 +113,7 @@ class TripsPage extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 5),
+                                    const SizedBox(height: 5),
                                     Row(
                                       children: [
                                         Icon(
@@ -119,7 +121,7 @@ class TripsPage extends StatelessWidget {
                                           color: Colors.grey[600],
                                           size: 14,
                                         ),
-                                        SizedBox(width: 5),
+                                        const SizedBox(width: 5),
                                         Text(
                                           'Date: ${booking['departureDate']}',
                                           style: TextStyle(
@@ -130,7 +132,7 @@ class TripsPage extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 5),
+                                    const SizedBox(height: 5),
                                     Row(
                                       children: [
                                         Icon(
@@ -138,7 +140,7 @@ class TripsPage extends StatelessWidget {
                                           color: Colors.grey[600],
                                           size: 14,
                                         ),
-                                        SizedBox(width: 5),
+                                        const SizedBox(width: 5),
                                         Text(
                                           'Time: ${booking['departureTime']}',
                                           style: TextStyle(
@@ -149,14 +151,14 @@ class TripsPage extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 10),
+                                    const SizedBox(height: 10),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           'Cost: ${booking['price']}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -167,9 +169,9 @@ class TripsPage extends StatelessWidget {
                                               context: context,
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
-                                                  title: Text(
+                                                  title: const Text(
                                                       "Confirm Cancellation"),
-                                                  content: Text(
+                                                  content: const Text(
                                                       "Are you sure you want to cancel this booking?"),
                                                   actions: <Widget>[
                                                     TextButton(
@@ -177,14 +179,14 @@ class TripsPage extends StatelessWidget {
                                                         Navigator.of(context)
                                                             .pop(false); // No
                                                       },
-                                                      child: Text("No"),
+                                                      child: const Text("No"),
                                                     ),
                                                     TextButton(
                                                       onPressed: () {
                                                         Navigator.of(context)
                                                             .pop(true); // Yes
                                                       },
-                                                      child: Text("Yes"),
+                                                      child: const Text("Yes"),
                                                     ),
                                                   ],
                                                 );
@@ -201,10 +203,11 @@ class TripsPage extends StatelessWidget {
                                           },
                                           style: ElevatedButton.styleFrom(
                                             foregroundColor: Colors.white,
-                                            backgroundColor: Color.fromARGB(
-                                                255, 237, 83, 36),
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 237, 83, 36),
                                           ),
-                                          child: Text(
+                                          child: const Text(
                                             'Cancel Booking',
                                             style: TextStyle(
                                               color: Colors.white,
@@ -224,8 +227,8 @@ class TripsPage extends StatelessWidget {
                     },
                   ),
             Container(
-              padding: EdgeInsets.all(20),
-              child: Center(
+              padding: const EdgeInsets.all(20),
+              child: const Center(
                 child: Text('Hotel checkins...'),
               ),
             ),
@@ -262,7 +265,7 @@ Future<void> cancelBooking(
 
       // Show success snackbar
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Booking canceled successfully'),
           backgroundColor: Colors.green,
         ),
@@ -270,7 +273,7 @@ Future<void> cancelBooking(
     } else {
       // If no document found with the given booking reference, show error message
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Booking not found'),
           backgroundColor: Colors.red,
         ),
@@ -280,7 +283,7 @@ Future<void> cancelBooking(
     print('Error canceling booking: $error');
     // Show error snackbar
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Error canceling booking. Please try again.'),
         backgroundColor: Colors.red,
       ),

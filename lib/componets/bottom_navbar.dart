@@ -17,9 +17,9 @@ class _NavbarBottomState extends State<NavbarBottom> {
 
   final List<Widget> _pages = [
     HomePage(),
-    BookingPage(),
-    TripsPage(),
-    ProfilePage(),
+    const BookingPage(),
+    const TripsPage(),
+    const ProfilePage(),
   ];
 
   @override
@@ -63,7 +63,7 @@ class _NavbarBottomState extends State<NavbarBottom> {
         },
         rippleColor: Colors.grey.shade200,
         hoverColor: Colors.grey.shade100,
-        activeColor: Color.fromARGB(255, 237, 83, 36),
+        activeColor: const Color.fromARGB(255, 237, 83, 36),
         color: Colors.grey,
       ),
     );

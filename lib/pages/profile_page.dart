@@ -58,9 +58,9 @@ class _ProfilePageState extends State<ProfilePage> {
         context: context,
         builder: (context) => AlertDialog(
           backgroundColor: Colors.grey[900],
-          title: Text(
+          title: const Text(
             "Select Gender",
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white),
           ),
           content: DropdownButton<String>(
             value: selectedGender ?? 'Male',
@@ -68,8 +68,8 @@ class _ProfilePageState extends State<ProfilePage> {
               newValue = value!;
               Navigator.of(context).pop(newValue);
             },
-            style:
-                TextStyle(color: Colors.white), // Style for the selected value
+            style: const TextStyle(
+                color: Colors.white), // Style for the selected value
             dropdownColor:
                 Colors.grey[900], // Background color of the dropdown list
             iconEnabledColor: Colors.white,
@@ -88,9 +88,9 @@ class _ProfilePageState extends State<ProfilePage> {
           actions: [
             //cancel button
             TextButton(
-              child: Text(
+              child: const Text(
                 'Cancel',
-                style: const TextStyle(color: Colors.red),
+                style: TextStyle(color: Colors.red),
               ),
               onPressed: () => Navigator.pop(context),
             ),
@@ -120,17 +120,17 @@ class _ProfilePageState extends State<ProfilePage> {
           actions: [
             //cancel button
             TextButton(
-              child: Text(
+              child: const Text(
                 'Cancel',
-                style: const TextStyle(color: Colors.red),
+                style: TextStyle(color: Colors.red),
               ),
               onPressed: () => Navigator.pop(context),
             ),
             //save button
             TextButton(
-              child: Text(
+              child: const Text(
                 'Save',
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white),
               ),
               onPressed: () => Navigator.of(context).pop(newValue),
             ),
@@ -140,7 +140,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
 
     // update in firestore
-    if (newValue.trim().length > 0) {
+    if (newValue.trim().isNotEmpty) {
       //update only when there is value in text filed
       await usersCollection.doc(currentUser.email).update({field: newValue});
     }
@@ -151,7 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
         backgroundColor: Colors.grey[300],
         appBar: AppBar(
-          title: Center(
+          title: const Center(
             child: Text(
               "Profile page",
               style: TextStyle(color: Colors.black),
@@ -159,21 +159,21 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.logout),
+              icon: const Icon(Icons.logout),
               onPressed: () {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('Logout'),
-                      content: Text('Are you sure you want to logout?'),
+                      title: const Text('Logout'),
+                      content: const Text('Are you sure you want to logout?'),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () {
                             // Dismiss the dialog and cancel the logout
                             Navigator.of(context).pop();
                           },
-                          child: Text('Cancel'),
+                          child: const Text('Cancel'),
                         ),
                         TextButton(
                           onPressed: () {
@@ -182,7 +182,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
                             signUserOut();
                           },
-                          child: Text('Logout'),
+                          child: const Text('Logout'),
                         ),
                       ],
                     );
@@ -223,6 +223,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   'https://th.bing.com/th/id/OIP.TpqSE-tsrMBbQurUw2Su-AHaHk?w=159&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'),
                             ),
                       Positioned(
+                        bottom: -10,
+                        left: 80,
                         child: IconButton(
                           onPressed: selectImage,
                           icon: const Icon(
@@ -230,8 +232,6 @@ class _ProfilePageState extends State<ProfilePage> {
                             color: Colors.black,
                           ),
                         ),
-                        bottom: -10,
-                        left: 80,
                       )
                     ],
                   ),

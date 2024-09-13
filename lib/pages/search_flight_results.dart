@@ -17,7 +17,7 @@ class SearchResultsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Available flights Results'),
+        title: const Text('Available flights Results'),
       ),
       body: ListView.builder(
         itemCount: results.length,
@@ -25,8 +25,8 @@ class SearchResultsPage extends StatelessWidget {
           final flight = results[index];
 
           return Container(
-            padding: EdgeInsets.all(16.0),
-            margin: EdgeInsets.symmetric(vertical: 8.0),
+            padding: const EdgeInsets.all(16.0),
+            margin: const EdgeInsets.symmetric(vertical: 8.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(
@@ -43,19 +43,19 @@ class SearchResultsPage extends StatelessWidget {
                     Expanded(
                       child: Text(
                         flight.departure,
-                        style: TextStyle(fontSize: 18.0),
+                        style: const TextStyle(fontSize: 18.0),
                       ),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.flight_takeoff,
                       color: Color.fromARGB(255, 237, 83, 36),
                     ),
-                    SizedBox(
+                    const SizedBox(
                         width: 28), // Adjust the width as needed for spacing
                     Expanded(
                       child: Text(
                         flight.arrival,
-                        style: TextStyle(fontSize: 18.0),
+                        style: const TextStyle(fontSize: 18.0),
                       ),
                     ),
                   ],
@@ -66,20 +66,20 @@ class SearchResultsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 8.0),
+                      margin: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Text(
                         'Flight: ${flight.flightNumber}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 8.0),
+                      margin: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Text(
                         '${flight.departureDate}  ${flight.departureTime}',
-                        style: TextStyle(fontSize: 16.0),
+                        style: const TextStyle(fontSize: 16.0),
                       ),
                     ),
                   ],
@@ -94,18 +94,19 @@ class SearchResultsPage extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.flight_takeoff, color: Colors.green),
+                            const Icon(Icons.flight_takeoff,
+                                color: Colors.green),
                             Text('Status: ${flight.status}',
-                                style: TextStyle(fontSize: 15.0)),
+                                style: const TextStyle(fontSize: 15.0)),
                           ],
                         ),
-                        SizedBox(height: 4.0),
+                        const SizedBox(height: 4.0),
                         Row(
                           children: [
-                            Icon(Icons.airline_seat_recline_normal,
+                            const Icon(Icons.airline_seat_recline_normal,
                                 color: Colors.orange),
                             Text('Available Seats: ${flight.availableSeats}',
-                                style: TextStyle(fontSize: 15.0)),
+                                style: const TextStyle(fontSize: 15.0)),
                           ],
                         ),
                       ],
@@ -114,11 +115,11 @@ class SearchResultsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Price: ${int.parse(flight.price)}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
                             )),
-                        SizedBox(height: 8.0),
+                        const SizedBox(height: 8.0),
                         TextButton(
                           onPressed: () async {
                             try {
@@ -147,17 +148,17 @@ class SearchResultsPage extends StatelessWidget {
                                 SnackBar(
                                   content: Text(
                                       'An error occurred while booking the flight: $error'),
-                                  duration: Duration(seconds: 2),
+                                  duration: const Duration(seconds: 2),
                                 ),
                               );
                             }
                           },
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                          ),
                           child: Text(
                             'Book Flight',
                             style: TextStyle(color: Colors.white),
-                          ),
-                          style: TextButton.styleFrom(
-                            backgroundColor: Colors.blue,
                           ),
                         ),
                       ],

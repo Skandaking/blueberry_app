@@ -10,7 +10,8 @@ class PaymentPage extends StatefulWidget {
   final String bookingReference;
   final String price;
 
-  PaymentPage({required this.bookingReference, required this.price});
+  const PaymentPage(
+      {super.key, required this.bookingReference, required this.price});
 
   @override
   _PaymentPageState createState() => _PaymentPageState();
@@ -19,7 +20,7 @@ class PaymentPage extends StatefulWidget {
 class _PaymentPageState extends State<PaymentPage> {
   Token? _paymentToken;
   PaymentMethod? _paymentMethod;
-  bool _isLoading = false;
+  final bool _isLoading = false;
 
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -71,7 +72,7 @@ class _PaymentPageState extends State<PaymentPage> {
             // Wrap with Builder widget
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text('Payment Successful'),
+                title: const Text('Payment Successful'),
                 content:
                     Text('Payment completed for amount: MK ${widget.price}'),
                 actions: <Widget>[
@@ -80,7 +81,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       Navigator.pop(context); // Close the AlertDialog
                       //Navigator.pop(context); // Close the PaymentPage
                     },
-                    child: Text('OK'),
+                    child: const Text('OK'),
                   ),
                 ],
               );
@@ -92,7 +93,7 @@ class _PaymentPageState extends State<PaymentPage> {
       print('Error during payment: $error');
       // Show error snackbar if payment fails
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Error during payment. Please try again.'),
           backgroundColor: Colors.red,
         ),
@@ -104,16 +105,16 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Make Payment'),
+        title: const Text('Make Payment'),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
             onPressed: () {
               // Navigate to NavbarBottom when Home icon is clicked
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => NavbarBottom()),
+                MaterialPageRoute(builder: (context) => const NavbarBottom()),
                 (Route<dynamic> route) => false,
               );
             },
@@ -132,7 +133,7 @@ class _PaymentPageState extends State<PaymentPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Price:',
                     style: TextStyle(
                       fontSize: 18.0,
@@ -141,33 +142,33 @@ class _PaymentPageState extends State<PaymentPage> {
                   ),
                   Text(
                     'MK${widget.price}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18.0,
                       color: Color.fromARGB(255, 237, 83, 36),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: _payWithCard,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blueGrey[700],
-                  minimumSize: Size(double.infinity, 50.0),
+                  minimumSize: const Size(double.infinity, 50.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Pay with Card',
                   style: TextStyle(color: Colors.white, fontSize: 16.0),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Center(
                 child: Text(
                   'Booking Reference: ${widget.bookingReference}',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),

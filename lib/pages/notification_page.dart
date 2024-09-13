@@ -3,13 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class NotificationPage extends StatelessWidget {
-  const NotificationPage({Key? key});
+  const NotificationPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Notifications"),
+        title: const Text("Notifications"),
       ),
       body: _buildNotificationList(),
     );
@@ -24,12 +26,12 @@ class NotificationPage extends StatelessWidget {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return Center(
+          return const Center(
             child: Text("No notifications"),
           );
         }
@@ -42,7 +44,7 @@ class NotificationPage extends StatelessWidget {
             return ListTile(
               title: Text(
                 notification['title'],
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 237, 83, 36),
@@ -53,17 +55,17 @@ class NotificationPage extends StatelessWidget {
                 children: [
                   Text(
                     notification['message'],
-                    style: TextStyle(fontSize: 16.0),
+                    style: const TextStyle(fontSize: 16.0),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     'Received on: ${_formatDate(notificationDate)}',
-                    style: TextStyle(fontSize: 14.0),
+                    style: const TextStyle(fontSize: 14.0),
                   ),
                 ],
               ),
               trailing: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.delete,
                   color: Color.fromARGB(255, 237, 83, 36),
                 ),
@@ -88,7 +90,7 @@ class NotificationPage extends StatelessWidget {
     } catch (error) {
       print("Error deleting notification: $error");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Error deleting notification. Please try again.'),
           backgroundColor: Colors.red,
         ),

@@ -63,7 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => NavbarBottom(),
+            builder: (context) => const NavbarBottom(),
           ),
         );
       } else {
@@ -200,7 +200,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         onTap: () => GoogleAuth().signInWithGoogle(),
                         imagePath: 'lib/images/google.png'),
 
-                    SizedBox(width: 25),
+                    const SizedBox(width: 25),
 
                     //facebook button
                     SquareTile(onTap: () {}, imagePath: 'lib/images/fb.png'),

@@ -5,7 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthPage extends StatelessWidget {
-  const AuthPage({Key? key});
+  const AuthPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class AuthPage extends StatelessWidget {
         builder: (context, snapshot) {
           // user is logged in
           if (snapshot.hasData) {
-            return NavbarBottom();
+            return const NavbarBottom();
           }
 
           // Check if the user is not logged in

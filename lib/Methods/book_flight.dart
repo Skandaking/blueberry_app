@@ -35,7 +35,7 @@ class BookingManager {
       // Return the generated booking reference
       return bookingReference;
     } catch (error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -58,7 +58,7 @@ class BookingManager {
         return lastBookingNumber + 1;
       }
     } catch (error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -77,7 +77,7 @@ class BookingManager {
         'bookingStatus': status,
       });
     } catch (error) {
-      throw error;
+      rethrow;
     }
   }
 }

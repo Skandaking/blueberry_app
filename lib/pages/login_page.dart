@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                         onTap: () => GoogleAuth().signInWithGoogle(),
                         imagePath: 'lib/images/google.png'),
 
-                    SizedBox(width: 25),
+                    const SizedBox(width: 25),
 
                     //facebook button
                     SquareTile(onTap: () {}, imagePath: 'lib/images/fb.png'),
